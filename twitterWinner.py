@@ -9,10 +9,9 @@ blocked = open('twitterFilter.txt', 'r').read().splitlines()
 blocked_lower = [string.lower() for string in blocked]
 
 # Gets blocked users' screen names
-blocked_users = api.blocks()
 blocked_screen_names = []
-for user in blocked_users: 
-    blocked_screen_names.append(user.screen_name)
+for blocked in tweepy.Cursor(api.blocks).items():
+    blocked_screen_names.append(blocked.screen_name)
 
 # Search filters and number
 search_terms = ' OR '.join(["retweet to win", '#retweettowin'])
@@ -22,7 +21,7 @@ query = search_terms + ' ' + filters
 
 # TwitterBot
 
-for tweet in tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 'recent', tweet_mode = 'extended').items(100):
+for tweet in tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 'recent', tweet_mode = 'extended').items(150):
 
     # Check if it exists
     if not api.get_status(tweet.id):
@@ -56,5 +55,3 @@ for tweet in tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 're
     tweet.retweet() # Retweets the Tweet
     print(f'{combined_tweet}\n\n----------\n') # Prints screen name and Tweet
     time.sleep(7.5)
-
-blocked.close()
