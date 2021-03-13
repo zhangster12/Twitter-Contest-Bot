@@ -11,7 +11,7 @@ my_screen_name = api.me().screen_name
 
 if following_count > 2000:
     print(f'Current following count is at {following_count}.')
-    for friend in tweepy.Cursor(api.friends).items(following_count - 1000):
+    for friend in tweepy.Cursor(api.friends).items(following_count):
         
         # Checks if user is following authenticating user
         status = api.show_friendship(source_screen_name = friend.screen_name, target_screen_name = my_screen_name)
