@@ -21,7 +21,7 @@ query = search_terms + ' ' + filters
 
 # TwitterBot
 
-for tweet in tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 'recent', tweet_mode = 'extended').items(150):
+for tweet in tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 'recent', tweet_mode = 'extended').items(100):
 
     # Check if it exists
     if not api.get_status(tweet.id):
@@ -29,7 +29,7 @@ for tweet in tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 're
         continue
     
     status = api.get_status(tweet.id)
-    combined_tweet = tweet.user.name + ' -- @' + tweet.user.screen_name + ': \n' + tweet.full_text
+    combined_tweet = tweet.user.name + tweet.user.screen_name + tweet.user.description + tweet.full_text
 
     # Filter Tweets
 
@@ -53,5 +53,5 @@ for tweet in tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 're
     api.create_friendship(tweet.user.screen_name) # Follows tweet's user screen name
     tweet.favorite() # Favorites the Tweet
     tweet.retweet() # Retweets the Tweet
-    print(f'{combined_tweet}\n\n----------\n') # Prints screen name and Tweet
+    print(f'{tweet.user.name} - @{tweet.user.screen_name}:\n\n{tweet.full_text}\n\n----------\n') # Prints screen name and Tweet
     time.sleep(7.5)
