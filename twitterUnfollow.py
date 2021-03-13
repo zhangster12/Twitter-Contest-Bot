@@ -1,4 +1,6 @@
 # Unfollows users if the authenticating user's following number is greater than 2000.
+# Will unfollow users until the authenticating user's following number is 1500.
+
 import os, time, tweepy
 from tweepy.cursor import Cursor
 from auth import api
