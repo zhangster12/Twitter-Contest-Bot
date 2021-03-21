@@ -1,17 +1,11 @@
 # Run with command: py twitterWinner.py
 import os, time, tweepy
 from tweepy.cursor import Cursor
-from auth import api
+from auth import api, blocked_screen_names, blocked_phrase_lower
 
 os.system('cls')
 
-blocked = open('twitterFilter.txt', 'r').read().splitlines()
-blocked_lower = [string.lower() for string in blocked]
-
-# Gets blocked users' screen names
-blocked_screen_names = []
-for blocked in tweepy.Cursor(api.blocks).items():
-    blocked_screen_names.append(blocked.screen_name)
+print(blocked_phrase_lower)
 
 # Search filters and number
 search_terms = ' OR '.join(["retweet to win", '#retweettowin'])
@@ -39,7 +33,7 @@ for tweet in tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 're
         continue
 
     # Checks if Tweet contains blocked phrases
-    elif any(phrase in combined_tweet.lower() for phrase in blocked_lower):
+    elif any(phrase in combined_tweet.lower() for phrase in blocked_phrase_lower):
         api.create_block(tweet.user.screen_name)
         print(f'Tweet contains blocked phrases.\n{tweet.user.screen_name} has been blocked.\n\n----------\n')
         continue

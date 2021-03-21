@@ -1,15 +1,9 @@
 # Run with command: py twitterWinner.py
 import os, time, tweepy
 from tweepy.cursor import Cursor
-from auth import api
+from auth import api, blocked_screen_names
 
 os.system('cls')
-
-# Gets blocked users' screen names
-blocked_users = api.blocks()
-blocked_screen_names = []
-for user in blocked_users: 
-    blocked_screen_names.append(user.screen_name)
 
 # TwitterBot
 
