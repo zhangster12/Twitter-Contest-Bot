@@ -11,11 +11,3 @@ auth.set_access_token(access_token, access_token_secret)
 
 # Controls Twitter account
 api = tweepy.API(auth, wait_on_rate_limit = True, wait_on_rate_limit_notify = True)
-
-# Gets blocked users' screen names
-blocked_screen_names = []
-for blocked in tweepy.Cursor(api.blocks).items():
-    blocked_screen_names.append(blocked.screen_name)
-
-blocked_phrase = open('twitterFilter.txt', 'r').read().splitlines()
-blocked_phrase_lower = [string.lower() for string in blocked_phrase]

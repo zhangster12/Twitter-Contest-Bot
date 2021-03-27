@@ -12,4 +12,3 @@ git push origin
 # Things to add:
 - [ ] Filter blocked users
 - [ ] Write to Twitter filter
-- [ ] Reverse following list to unfollow
