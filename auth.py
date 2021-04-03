@@ -1,5 +1,4 @@
 import tweepy
-from tweepy.cursor import Cursor
 
 consumer_key = 'Bi5Zzb6nl41grnJ1Xn1rxo4PY'
 consumer_secret = 'cH2oLaZ67w44p1EIjsrp7uWXA0J6v9YHHMgGJKadkQBH35suBL'

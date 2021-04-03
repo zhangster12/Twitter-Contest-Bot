@@ -1,23 +1,26 @@
 import os, random, time, tweepy
 from tweepy.cursor import Cursor
 from auth import api
-from datetime import datetime
+from datetime import datetime, timedelta
 
 os.system('cls')
 
+# Get time interval
 now = datetime.utcnow()
-start = now.replace(month = now.month - 1 if now.month > 1 else 12 - abs(now.month - 1))
-
-# Total Tweet count
-#print(api.get_user(api.me().screen_name).statuses_count)
+start = now - timedelta(days = 31)
+print(f'Time Frame: {start} - {now}\n')
+time.sleep(2.5)
 
 for tweet in tweepy.Cursor(api.user_timeline, tweet_mode = 'extended').items(3200):
-    
+
     status = api.get_status(tweet.id)
-    # 'Status' object has no attribute 'retweeted_status'
-    #original_status = api.get_status(status.retweeted_status.id)
-    created_at = status.created_at
-    #created_at = original_status.created_at
+    try:
+        original_status = api.get_status(status.retweeted_status.id)
+    except AttributeError:
+        print('Tweet is not Retweet.\n')
+        continue
+
+    created_at = original_status.created_at
 
     # Checks if Tweet is in time interval
     if start < created_at < now:

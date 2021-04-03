@@ -47,6 +47,7 @@ for tweet in tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 're
     # Checks if Tweet has already been favorited or Retweeted
     elif status.favorited == True or status.retweeted == True:
         print('Tweet has already been favorited or Retweeted.\n\n----------\n')
+        # tweepy.error.TweepError: [{'code': 161, 'message': "You are unable to follow more people at this time. Learn more <a href='http://support.twitter.com/articles/66885-i-can-t-follow-people-follow-limits'>here</a>."}]
         api.create_friendship(tweet.user.screen_name)
         continue
 
