@@ -14,6 +14,7 @@ time.sleep(2.5)
 for tweet in tweepy.Cursor(api.user_timeline, tweet_mode = 'extended').items(3200):
 
     status = api.get_status(tweet.id)
+    
     try:
         original_status = api.get_status(status.retweeted_status.id)
     except AttributeError:

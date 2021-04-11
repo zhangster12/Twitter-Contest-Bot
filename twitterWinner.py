@@ -5,17 +5,18 @@ from auth import api
 
 os.system('cls')
 
-# Gets blocked users' screen names
+# Blocked users' screen names
 blocked_screen_names = []
 for blocked in tweepy.Cursor(api.blocks).items():
     blocked_screen_names.append(blocked.screen_name)
 
+# Blocked phrases
 blocked_phrase = open('twitterFilter.txt', 'r').read().splitlines()
 blocked_phrase_lower = [string.lower() for string in blocked_phrase]
 
 # Search filters and number
 search_terms = ' OR '.join(["retweet to win", '#retweettowin'])
-filters = ' AND '.join(['-filter:retweets', '-filter:replies', '-filter:quote', '-filter:nullcast'])
+filters = ' AND '.join(['-filter:retweets', '-filter:replies', '-filter:quote', '-filter:nullcast', '-filter:block', '-filter:retweeted', '-filter:favorited'])
 
 query = search_terms + ' ' + filters
 
@@ -23,36 +24,35 @@ query = search_terms + ' ' + filters
 
 for tweet in tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 'recent', tweet_mode = 'extended').items(100):
 
-    # Check if it exists
-    if not api.get_status(tweet.id):
-        print('Status does not exist.\n\n----------\n')
+    try:
+        status = api.get_status(tweet.id)
+        combined_tweet = tweet.user.name + tweet.user.screen_name + tweet.user.description + tweet.full_text
+
+        # Filter Tweets
+
+        # User screen name is blocked
+        if tweet.user.screen_name in blocked_screen_names:
+            print(f'{tweet.user.screen_name} is blocked.\n\n----------\n')
+            continue
+
+        # Tweet contains blocked phrases
+        elif any(phrase in combined_tweet.lower() for phrase in blocked_phrase_lower):
+            api.create_block(tweet.user.screen_name)
+            print(f'Tweet contains blocked phrases.\n{tweet.user.screen_name} has been blocked.\n\n----------\n')
+            continue
+
+        # Tweet has already been favorited or Retweeted
+        elif status.favorited or status.retweeted:
+            print('Tweet has already been favorited or Retweeted.\n\n----------\n')
+            api.create_friendship(tweet.user.screen_name)
+            continue
+
+        api.create_friendship(tweet.user.screen_name) # Follows tweet's user screen name
+        tweet.favorite() # Favorites the Tweet
+        tweet.retweet() # Retweets the Tweet
+        print(f'{tweet.user.name} - @{tweet.user.screen_name}:\n\n{tweet.full_text}\n\n----------\n') # Prints screen name and Tweet
+        time.sleep(7.5)
+
+    except tweepy.TweepError as e:
+        print(str(e) + '\n\n----------\n')
         continue
-    
-    status = api.get_status(tweet.id)
-    combined_tweet = tweet.user.name + tweet.user.screen_name + tweet.user.description + tweet.full_text
-
-    # Filter Tweets
-
-    # Checks if user screen name is blocked
-    if tweet.user.screen_name in blocked_screen_names:
-        print(f'{tweet.user.screen_name} is blocked.\n\n----------\n')
-        continue
-
-    # Checks if Tweet contains blocked phrases
-    elif any(phrase in combined_tweet.lower() for phrase in blocked_phrase_lower):
-        api.create_block(tweet.user.screen_name)
-        print(f'Tweet contains blocked phrases.\n{tweet.user.screen_name} has been blocked.\n\n----------\n')
-        continue
-
-    # Checks if Tweet has already been favorited or Retweeted
-    elif status.favorited == True or status.retweeted == True:
-        print('Tweet has already been favorited or Retweeted.\n\n----------\n')
-        # tweepy.error.TweepError: [{'code': 161, 'message': "You are unable to follow more people at this time. Learn more <a href='http://support.twitter.com/articles/66885-i-can-t-follow-people-follow-limits'>here</a>."}]
-        api.create_friendship(tweet.user.screen_name)
-        continue
-
-    api.create_friendship(tweet.user.screen_name) # Follows tweet's user screen name
-    tweet.favorite() # Favorites the Tweet
-    tweet.retweet() # Retweets the Tweet
-    print(f'{tweet.user.name} - @{tweet.user.screen_name}:\n\n{tweet.full_text}\n\n----------\n') # Prints screen name and Tweet
-    time.sleep(7.5)
