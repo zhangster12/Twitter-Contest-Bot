@@ -22,7 +22,7 @@ query = search_terms + ' ' + filters
 
 # TwitterBot
 
-for tweet in tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 'recent', tweet_mode = 'extended').items(100):
+for tweet in tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 'recent', tweet_mode = 'extended').items(200):
 
     try:
         status = api.get_status(tweet.id)
@@ -51,7 +51,7 @@ for tweet in tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 're
         tweet.favorite() # Favorites the Tweet
         tweet.retweet() # Retweets the Tweet
         print(f'{tweet.user.name} - @{tweet.user.screen_name}:\n\n{tweet.full_text}\n\n----------\n') # Prints screen name and Tweet
-        time.sleep(7.5)
+        time.sleep(5)
 
     except tweepy.TweepError as e:
         print(str(e) + '\n\n----------\n')

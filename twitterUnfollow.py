@@ -20,7 +20,7 @@ if following_count > 2000:
             continue
         
         # Randomly skips users
-        elif random.randint(0, 1) == 1:
+        elif random.randint(0, 2) == 1:
             print('User has been skipped.')
             continue
         
