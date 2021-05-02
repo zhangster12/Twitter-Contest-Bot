@@ -5,14 +5,21 @@ from auth import api
 
 os.system('cls')
 
+# Blocked phrases
+blocked_phrase = open('twitterFilter.txt', 'r').read().splitlines()
+# blocked_phrase.sort(key = str.casefold)
+# sorted_file = open('twitterFilter.txt', 'w')
+
+# for phrase in blocked_phrase:
+#     sorted_file.writelines(phrase)
+#     sorted_file.writelines('\n')
+
+blocked_phrase_lower = [string.lower() for string in blocked_phrase]
+
 # Blocked users' screen names
 blocked_screen_names = []
 for blocked in tweepy.Cursor(api.blocks).items():
     blocked_screen_names.append(blocked.screen_name)
-
-# Blocked phrases
-blocked_phrase = open('twitterFilter.txt', 'r').read().splitlines()
-blocked_phrase_lower = [string.lower() for string in blocked_phrase]
 
 # Search filters and number
 search_terms = ' OR '.join(["retweet to win", '#retweettowin'])

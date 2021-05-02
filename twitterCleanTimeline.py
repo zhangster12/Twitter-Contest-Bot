@@ -33,7 +33,7 @@ for tweet in tweepy.Cursor(api.user_timeline, tweet_mode = 'extended').items(320
             print('Tweet has been Unretweeted.\n')
         
         print(f'{created_at}:\n\n{tweet.full_text}\n') # Prints screen name and Tweet
-        time.sleep(7.5)
+        time.sleep(5)
 
     except AttributeError:
         print('Tweet is not Retweet.\n')

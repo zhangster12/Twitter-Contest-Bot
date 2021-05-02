@@ -31,6 +31,6 @@ if following_count > 2000:
         else:
             api.destroy_friendship(friend.screen_name)
             print(f'{friend.screen_name} has been unfollowed.')
-            time.sleep(7.5)
+            time.sleep(5)
 else:
     print(f'Following count is at {following_count}. No unfollowing needed.')
