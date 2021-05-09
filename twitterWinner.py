@@ -7,13 +7,6 @@ os.system('cls')
 
 # Blocked phrases
 blocked_phrase = open('twitterFilter.txt', 'r').read().splitlines()
-# blocked_phrase.sort(key = str.casefold)
-# sorted_file = open('twitterFilter.txt', 'w')
-
-# for phrase in blocked_phrase:
-#     sorted_file.writelines(phrase)
-#     sorted_file.writelines('\n')
-
 blocked_phrase_lower = [string.lower() for string in blocked_phrase]
 
 # Blocked users' screen names
@@ -28,7 +21,6 @@ filters = ' AND '.join(['-filter:retweets', '-filter:replies', '-filter:quote', 
 query = search_terms + ' ' + filters
 
 # TwitterBot
-
 for tweet in tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 'recent', tweet_mode = 'extended').items(200):
 
     try:
@@ -63,3 +55,14 @@ for tweet in tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 're
     except tweepy.TweepError as e:
         print(str(e) + '\n\n----------\n')
         continue
+
+# Sorts twitterFilter.txt alphabetically
+blocked_phrase.sort(key = str.casefold)
+sorted_file = open('twitterFilter.txt', 'w')
+
+for i, phrase in enumerate(blocked_phrase):
+    sorted_file.writelines(phrase)
+    if i == len(blocked_phrase) - 1:
+        break
+    else:
+        sorted_file.writelines('\n')
