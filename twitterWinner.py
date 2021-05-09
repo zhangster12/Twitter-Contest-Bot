@@ -15,7 +15,7 @@ for blocked in tweepy.Cursor(api.blocks).items():
     blocked_screen_names.append(blocked.screen_name)
 
 # Search filters and number
-search_terms = ' OR '.join(["retweet to win", '#retweettowin'])
+search_terms = ' OR '.join(["retweet to win", '#retweettowin', '-comment', '-comments'])
 filters = ' AND '.join(['-filter:retweets', '-filter:replies', '-filter:quote', '-filter:nullcast', '-filter:block', '-filter:retweeted', '-filter:favorited'])
 
 query = search_terms + ' ' + filters
