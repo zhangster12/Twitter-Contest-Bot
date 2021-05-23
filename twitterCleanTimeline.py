@@ -1,4 +1,4 @@
-import os, random, time, tweepy
+import os, time, tweepy
 from tweepy.cursor import Cursor
 from auth import api
 from datetime import datetime, timedelta

@@ -57,6 +57,7 @@ for tweet in tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 're
         continue
 
 # Sorts twitterFilter.txt alphabetically
+blocked_phrase = list(set(blocked_phrase))
 blocked_phrase.sort(key = str.casefold)
 sorted_file = open('twitterFilter.txt', 'w')
 
