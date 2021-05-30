@@ -16,7 +16,7 @@ for blocked in tweepy.Cursor(api.blocks).items():
 
 # Search filters and number
 search_terms = ' OR '.join(["retweet to win", '#retweettowin'])
-filters = ' AND '.join(['-comment', '-tag', '-reply', '-filter:retweets', '-filter:replies', '-filter:quote', '-filter:nullcast'])
+filters = ' AND '.join(['-comment', '-tag', '-reply', '-vote', '-filter:retweets', '-filter:replies', '-filter:quote', '-filter:nullcast'])
 
 query = search_terms + ' ' + filters
 
