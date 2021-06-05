@@ -1,7 +1,6 @@
-import os, time, tweepy
-from tweepy.cursor import Cursor
 from auth import api
 from datetime import datetime, timedelta
+import os, time, tweepy
 
 os.system('cls')
 

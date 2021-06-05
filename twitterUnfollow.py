@@ -1,8 +1,7 @@
 # Randomly unfollows users if the authenticating user's following number is greater than 2000 until it's 1500
 
-import os, random, time, tweepy
-from tweepy.cursor import Cursor
 from auth import api
+import os, random, time, tweepy
 
 os.system('cls')
 

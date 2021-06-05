@@ -1,7 +1,5 @@
-# Run with command: py twitterWinner.py
-import os, time, tweepy
-from tweepy.cursor import Cursor
 from auth import api
+import os, time, tweepy
 
 os.system('cls')
 

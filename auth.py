@@ -1,6 +1,5 @@
-import tweepy
-
 from key import consumer_key, consumer_secret, access_token, access_token_secret
+import tweepy
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
