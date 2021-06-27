@@ -18,6 +18,8 @@ filters = ' AND '.join(['-comment', '-tag', '-reply', '-vote', '-filter:retweets
 
 query = search_terms + ' ' + filters
 
+os.system('cls')
+
 # TwitterBot
 for count, tweet in enumerate(tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 'recent', tweet_mode = 'extended').items(200)):
 
