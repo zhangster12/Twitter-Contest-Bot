@@ -10,17 +10,21 @@ my_screen_name = api.me().screen_name
 
 if following_count > 2000:
     print(f'Current following count is at {following_count}.')
-    for friend in tweepy.Cursor(api.friends).items(following_count):
+    for count, friend in enumerate(tweepy.Cursor(api.friends).items(following_count)):
+        
+        status = api.show_friendship(source_screen_name = friend.screen_name, target_screen_name = my_screen_name)
+        if count <= 500:
+            print(f'{count}. User was recently followed.' )
+            continue
         
         # Checks if user is following authenticating user
-        status = api.show_friendship(source_screen_name = friend.screen_name, target_screen_name = my_screen_name)
-        if status[0].following:
-            print(f'{friend.screen_name} follows {my_screen_name}.')
+        elif status[0].following:
+            print(f'{count}. {friend.screen_name} follows {my_screen_name}.')
             continue
         
         # Randomly skips users
         elif random.randint(0, 2) == 1:
-            print('User has been skipped.')
+            print(f'{count}. User has been skipped.')
             continue
         
         # Ends loop if following count is 1500
@@ -29,7 +33,7 @@ if following_count > 2000:
         
         else:
             api.destroy_friendship(friend.screen_name)
-            print(f'{friend.screen_name} has been unfollowed.')
+            print(f'{count}. {friend.screen_name} has been unfollowed.')
             time.sleep(5)
 else:
     print(f'Following count is at {following_count}. No unfollowing needed.')

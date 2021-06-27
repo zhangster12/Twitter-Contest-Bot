@@ -19,7 +19,7 @@ filters = ' AND '.join(['-comment', '-tag', '-reply', '-vote', '-filter:retweets
 query = search_terms + ' ' + filters
 
 # TwitterBot
-for tweet in tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 'recent', tweet_mode = 'extended').items(200):
+for count, tweet in enumerate(tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 'recent', tweet_mode = 'extended').items(200)):
 
     try:
         status = api.get_status(tweet.id)
@@ -29,25 +29,25 @@ for tweet in tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 're
 
         # User screen name is blocked
         if tweet.user.screen_name in blocked_screen_names:
-            print(f'{tweet.user.screen_name} is blocked.\n\n----------\n')
+            print(f'{count}. {tweet.user.screen_name} is blocked.\n\n----------\n')
             continue
 
         # Tweet contains blocked phrases
         elif any(phrase in combined_tweet.lower() for phrase in blocked_phrase_lower):
             api.create_block(tweet.user.screen_name)
-            print(f'Tweet contains blocked phrases.\n{tweet.user.screen_name} has been blocked.\n\n----------\n')
+            print(f'{count}. Tweet contains blocked phrases.\n{tweet.user.screen_name} has been blocked.\n\n----------\n')
             continue
 
         # Tweet has already been favorited or Retweeted
         elif status.favorited or status.retweeted:
-            print('Tweet has already been favorited or Retweeted.\n\n----------\n')
+            print('{count}. Tweet has already been favorited or Retweeted.\n\n----------\n')
             api.create_friendship(tweet.user.screen_name)
             continue
 
         api.create_friendship(tweet.user.screen_name) # Follows tweet's user screen name
         tweet.favorite() # Favorites the Tweet
         tweet.retweet() # Retweets the Tweet
-        print(f'{tweet.user.name} - @{tweet.user.screen_name}:\n\n{tweet.full_text}\n\n----------\n') # Prints screen name and Tweet
+        print(f'{count}. {tweet.user.name} - @{tweet.user.screen_name}:\n\n{tweet.full_text}\n\n----------\n') # Prints screen name and Tweet
         time.sleep(5)
 
     except tweepy.TweepError as e:
