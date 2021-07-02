@@ -21,7 +21,7 @@ query = search_terms + ' ' + filters
 os.system('cls')
 
 # TwitterBot
-for count, tweet in enumerate(tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 'recent', tweet_mode = 'extended').items(200)):
+for count, tweet in enumerate(tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 'recent', tweet_mode = 'extended').items(300)):
 
     try:
         status = api.get_status(tweet.id)
