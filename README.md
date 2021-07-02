@@ -5,7 +5,7 @@ Only accept the reward if it's completely free, no shipping, joining.
 ## To push new updates to GitHub, use lines:
 ```
 git add .
-git commit -m "Add existing file"
+git commit -m "Edited file"
 git push origin
 ```
 
