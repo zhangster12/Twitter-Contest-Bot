@@ -42,7 +42,7 @@ for count, tweet in enumerate(tweepy.Cursor(api.search, q = query, lang = 'en', 
 
         # Tweet has already been favorited or Retweeted
         elif status.favorited or status.retweeted:
-            print('{count}. Tweet has already been favorited or Retweeted.\n\n----------\n')
+            print(f'{count}. Tweet has already been favorited or Retweeted.\n\n----------\n')
             api.create_friendship(tweet.user.screen_name)
             continue
 

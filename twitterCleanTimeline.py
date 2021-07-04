@@ -24,12 +24,12 @@ for count, tweet in enumerate(tweepy.Cursor(api.user_timeline, tweet_mode = 'ext
         # Checks if Tweet is favorited
         if status.favorited:
             api.destroy_favorite(status.id)
-            print('{count}. Tweet has been unfavorited.\n')
+            print(f'{count}. Tweet has been unfavorited.\n')
         
         # Checks if Tweet is Retweeted
         if status.retweeted or tweet.full_text.startswith('RT @'):
             api.destroy_status(status.id)
-            print('{count}. Tweet has been Unretweeted.\n')
+            print(f'{count}. Tweet has been Unretweeted.\n')
         
         print(f'{created_at}:\n\n{tweet.full_text}\n') # Prints screen name and Tweet
         time.sleep(5)

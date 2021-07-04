@@ -1,5 +1,6 @@
 # Twitter-Contest-Bot
 Twitter bot for Retweeting and liking Twitter contests to win free stuff.
+Only run twitterWinner.py once a day.
 Only accept the reward if it's completely free, no shipping, joining.
 
 ## To push new updates to GitHub, use lines:
