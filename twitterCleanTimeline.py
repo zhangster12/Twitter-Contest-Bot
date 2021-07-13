@@ -32,7 +32,7 @@ for count, tweet in enumerate(tweepy.Cursor(api.user_timeline, tweet_mode = 'ext
             print(f'{count}. Tweet has been Unretweeted.\n')
         
         print(f'{created_at}:\n\n{tweet.full_text}\n') # Prints screen name and Tweet
-        time.sleep(5)
+        time.sleep(3)
 
     except AttributeError:
         print('Tweet is not Retweet.\n')

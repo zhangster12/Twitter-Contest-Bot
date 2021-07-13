@@ -50,7 +50,7 @@ for count, tweet in enumerate(tweepy.Cursor(api.search, q = query, lang = 'en', 
         tweet.favorite() # Favorites the Tweet
         tweet.retweet() # Retweets the Tweet
         print(f'{count}. {tweet.user.name} - @{tweet.user.screen_name}:\n\n{tweet.full_text}\n\n----------\n') # Prints screen name and Tweet
-        time.sleep(5)
+        time.sleep(3)
 
     except tweepy.TweepError as e:
         print(str(e) + '\n\n----------\n')
