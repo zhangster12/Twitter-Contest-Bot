@@ -14,7 +14,6 @@ clean_timeline = cleanTimeline()
 os.system('cls')
 
 day = datetime.today().day
-unfollow.unfollow()
 
 if day == 1 or api.me().friends_count > 3000:
     unfollow.unfollow()
