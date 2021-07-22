@@ -13,8 +13,9 @@ class winner:
             blocked_screen_names.append(blocked.screen_name)
 
         # Search filters and number
-        search_terms = ' OR '.join(["retweet to win", '#retweettowin'])
-        filters = ' AND '.join(['-comment', '-tag', '-reply', '-vote', '-filter:retweets', '-filter:replies', '-filter:quote', '-filter:nullcast'])
+        search_terms = ' OR '.join(['retweet to win', '#retweettowin'])
+        filters = ' AND '.join(['-attempt', '-comment', '-comments', '-guess', '-join', '-poll', '-post', '-predict', '-reply', '-screenshot', '-submit', '-subscribe', '-tag', '-vote',
+            '-filter:retweets', '-filter:replies', '-filter:quote', '-filter:polls'])
 
         query = search_terms + ' ' + filters
 
