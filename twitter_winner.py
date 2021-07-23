@@ -14,7 +14,7 @@ class winner:
         search_terms = ' OR '.join(['retweet to win', '#retweettowin'])
         filters = ' AND '.join(['-attempt', '-comment', '-comments', '-guess', '-help', '-join', '-poll', '-post', '-predict', '-refer',
             '-register', '-reply', '-screenshot', '-share', '-spread', '-submit', '-subscribe', '-tag', '-vote',
-            '-filter:retweets', '-filter:replies', '-filter:quote', '-filter:polls'])
+             '-filter:quote', '-filter:replies', '-filter:retweets'])
 
         query = search_terms + ' ' + filters
 
