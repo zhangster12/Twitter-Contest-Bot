@@ -8,13 +8,12 @@ class winner:
         blocked_phrase_lower = self.get_list_lower('twitterFilter.txt')
 
         # Blocked users' screen names
-        blocked_screen_names = []
-        for blocked in tweepy.Cursor(api.blocks).items():
-            blocked_screen_names.append(blocked.screen_name)
+        blocked_screen_names = [b.screen_name for b in tweepy.Cursor(api.blocks).items()]
 
         # Search filters and number
         search_terms = ' OR '.join(['retweet to win', '#retweettowin'])
-        filters = ' AND '.join(['-attempt', '-comment', '-comments', '-guess', '-join', '-poll', '-post', '-predict', '-reply', '-screenshot', '-submit', '-subscribe', '-tag', '-vote',
+        filters = ' AND '.join(['-attempt', '-comment', '-comments', '-guess', '-help', '-join', '-poll', '-post', '-predict', '-refer',
+            '-register', '-reply', '-screenshot', '-share', '-spread', '-submit', '-subscribe', '-tag', '-vote',
             '-filter:retweets', '-filter:replies', '-filter:quote', '-filter:polls'])
 
         query = search_terms + ' ' + filters
@@ -35,8 +34,9 @@ class winner:
 
                 # Tweet contains blocked phrases
                 elif any(phrase in combined_tweet.lower() for phrase in blocked_phrase_lower):
-                    api.create_block(tweet.user.screen_name)
-                    print(f'{count}. Tweet contains blocked phrases.\n{tweet.user.screen_name} has been blocked.\n\n----------\n')
+                    print(f'{count}. Tweet contains blocked phrases.\n\n----------\n')
+                    #api.create_block(tweet.user.screen_name)
+                    #print(f'{count}. Tweet contains blocked phrases.\n{tweet.user.screen_name} has been blocked.\n\n----------\n')
                     continue
 
                 # Tweet has already been favorited or Retweeted
