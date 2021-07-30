@@ -12,9 +12,9 @@ class winner:
 
         # Search filters and number
         search_terms = ' OR '.join(['retweet to win', '#retweettowin'])
-        filters = ' AND '.join(['-attempt', '-comment', '-comments', '-donate', '-guess', '-help', '-join', '-poll', '-post', '-predict',
-            '-quote', '-refer', '-register', '-reply', '-screenshot', '-share', '-spread', '-submit', '-subscribe', '-tag', '-target',
-            '-tell', '-vote', '-voting',
+        filters = ' AND '.join(['-attempt', '-caption', '-click', '-comment', '-comments', '-confirm', '-donate', '-guess', '-help',
+            '-join', '-pinned', '-poll', '-post', '-predict', '-quote', '-recreate', '-refer', '-register', '-reply', '-screenshot',
+            '-share', '-spread', '-submit', '-subscribe', '-tag', '-target', '-tell', '-vote', '-voting',
              '-filter:quote', '-filter:replies', '-filter:retweets'])
 
         query = search_terms + ' ' + filters

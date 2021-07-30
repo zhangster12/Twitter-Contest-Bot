@@ -18,7 +18,7 @@ day = datetime.today().day
 # Run script
 if day == 1 or api.me().friends_count > 3000:
     unfollow.unfollow()
-elif day in [7, 14, 21, 28]:
+elif day in [7, 14, 21, 28] or api.me().statuses_count > 7000:
     clean_timeline.unfavorite_unretweet()
 else:
     win.favorite_follow_retweet()
