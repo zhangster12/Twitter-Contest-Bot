@@ -22,7 +22,7 @@ class unfollow:
                     continue
                 
                 # Randomly skips users
-                elif random.randint(0, 2) == 1:
+                elif random.randint(0, 1) == 1:
                     print(f'{count}. User has been skipped.')
                     continue
                 
@@ -33,7 +33,7 @@ class unfollow:
                 else:
                     api.destroy_friendship(friend.screen_name)
                     print(f'{count}. {friend.screen_name} has been unfollowed.')
-                    time.sleep(3)
+                    time.sleep(2.5)
         else:
             print(f'Following count is at {api.me().friends_count}. No unfollowing needed.')
     

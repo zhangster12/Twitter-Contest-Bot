@@ -1,7 +1,8 @@
 # Twitter-Contest-Bot
-Twitter bot for Retweeting and liking Twitter contests to win free stuff.
-Only run twitter_bot.py once a day.
-Only accept the reward if it's completely free, no shipping, joining.
+Twitter bot for Retweeting and liking Twitter contests to win free stuff
+Only run twitter_bot.py once a day
+Only accept the reward if it's completely free, no shipping, joining
+Use English in twitterFilter.txt
 
 ## To push new updates to GitHub, use lines:
 ```
@@ -14,7 +15,5 @@ git push origin
 ```
 py twitter_bot.py
 ```
-
 ## Things to add:
-- [ ] Filter blocked users
-- [ ] Write to Twitter filter
+ - Block polls.

@@ -14,7 +14,7 @@ class winner:
         search_terms = ' OR '.join(['retweet to win', '#retweettowin'])
         filters = ' AND '.join(['-attempt', '-caption', '-click', '-comment', '-comments', '-confirm', '-donate', '-guess', '-help',
             '-join', '-pinned', '-poll', '-post', '-predict', '-quote', '-recreate', '-refer', '-register', '-reply', '-screenshot',
-            '-share', '-spread', '-submit', '-subscribe', '-tag', '-target', '-tell', '-vote', '-voting',
+            '-share', '-spread', '-sub', '-submit', '-subscribe', '-tag', '-tagging', '-target', '-tell', '-vote', '-votes', '-voting',
              '-filter:quote', '-filter:replies', '-filter:retweets'])
 
         query = search_terms + ' ' + filters
@@ -50,7 +50,7 @@ class winner:
                 tweet.favorite() # Favorites the Tweet
                 tweet.retweet() # Retweets the Tweet
                 print(f'{count}. {tweet.user.name} - @{tweet.user.screen_name}:\n\n{tweet.full_text}\n\n----------\n') # Prints screen name and Tweet
-                time.sleep(3)
+                time.sleep(2.5)
 
             except tweepy.TweepError as e:
                 print(str(e) + '\n\n----------\n')
