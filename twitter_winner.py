@@ -1,4 +1,5 @@
 from auth import api
+from twitter_clean_timeline import cleanTimeline
 import re, os, time, tweepy
 
 class winner:
@@ -7,31 +8,30 @@ class winner:
 
         blocked_phrase_lower = self.get_list_lower('twitterFilter.txt')
 
-        # Blocked users' screen names
-        blocked_screen_names = [b.screen_name for b in tweepy.Cursor(api.blocks).items()]
-
         # Search filters and number
         search_terms = ' OR '.join(['retweet to win', '#retweettowin'])
-        filters = ' AND '.join(['-attempt', '-buy', '-caption', '-click', '-comment', '-comments', '-confirm', '-donate', '-fill',
-            '-form', '-guess', '-help', '-join', '-pinned', '-poll', '-post', '-predict', '-quote', '-recreate', '-refer', '-register',
-            '-reply', '-screenshot', '-send', '-share', '-spread', '-sub', '-submit', '-subscribe', '-tag', '-tagging', '-target',
-            '-tell', '-vote', '-votes', '-voting',
-             '-filter:quote', '-filter:replies', '-filter:retweets'])
+        filters = ' AND '.join(['-attempt', '-buy', '-caption', '-click', '-comment', '-comments', '-confirm', '-donate', '-download',
+            '-fill', '-form', '-guess', '-help', '-join', '-pinned', '-poll', '-post', '-predict', '-quote', '-recreate', '-refer',
+            '-register', '-reply', '-screenshot', '-send', '-share', '-spread', '-sub', '-submit', '-subscribe', '-tag', '-tagging',
+            '-target', '-tell', '-upload', '-vote', '-votes', '-voting',
+            '-filter:quote', '-filter:replies', '-filter:retweets'])
 
         query = search_terms + ' ' + filters
 
-        os.system('cls')
-
-        # TwitterBot
-
         try:
+            # Blocked users' screen names
+            blocked_screen_names = [b.screen_name for b in tweepy.Cursor(api.blocks).items()]
+
+            os.system('cls')
+
+            # TwitterBot
 
             for count, tweet in enumerate(tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 'recent',
                 tweet_mode = 'extended').items(500)):
 
                 try:
                     status = api.get_status(tweet.id)
-                    combined_tweet = self.deEmojify(tweet.user.name + tweet.user.screen_name + tweet.user.description + tweet.full_text)
+                    combined_tweet = self.deEmojify(' '.join([tweet.user.name, tweet.user.screen_name, tweet.user.description, tweet.full_text]))
 
                     # User screen name is blocked
                     if tweet.user.screen_name in blocked_screen_names:
@@ -47,12 +47,12 @@ class winner:
                     elif status.favorited or status.retweeted:
                         print(f'{count}. Tweet has already been favorited or Retweeted.\n\n----------\n')
                         api.create_friendship(tweet.user.screen_name)
-                        continue
+                        break
 
                     api.create_friendship(tweet.user.screen_name) # Follows tweet's user screen name
                     tweet.favorite() # Favorites the Tweet
                     tweet.retweet() # Retweets the Tweet
-                    print(f'{count}. {tweet.user.name} - @{tweet.user.screen_name}:\n\n{self.deEmojify(tweet.full_text)}\n\n----------\n') # Prints screen name and Tweet
+                    print(self.deEmojify(f'{count}. {tweet.user.name} - @{tweet.user.screen_name}:\n\n{tweet.full_text}\n\n----------\n')) # Prints screen name and Tweet
                     time.sleep(2.5)
 
                 except tweepy.TweepError as e:
@@ -82,12 +82,12 @@ class winner:
     @staticmethod
     def deEmojify(text):
         regrex_pattern = re.compile('['
-            u'\U0001F600-\U0001F64F'  # Emoticons
-            u'\U0001F300-\U0001F5FF'  # Symbols and pictographs
-            u'\U0001F680-\U0001F6FF'  # Transport & map symbols
-            u'\U0001F1E0-\U0001F1FF'  # Flags (iOS)
-            u'\U0001F1F2-\U0001F1F4'  # Macau flag
-            u'\U0001F1E6-\U0001F1FF'  # Flags
+            u'\U0001F600-\U0001F64F' # Emoticons
+            u'\U0001F300-\U0001F5FF' # Symbols and pictographs
+            u'\U0001F680-\U0001F6FF' # Transport and map symbols
+            u'\U0001F1E0-\U0001F1FF' # Flags (iOS)
+            u'\U0001F1F2-\U0001F1F4' # Macau flag
+            u'\U0001F1E6-\U0001F1FF' # Flags
             u'\U0001F600-\U0001F64F'
             u'\U00002702-\U000027B0'
             u'\U000024C2-\U0001F251'

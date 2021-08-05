@@ -14,10 +14,10 @@ class cleanTimeline:
 
         for count, tweet in enumerate(tweepy.Cursor(api.user_timeline, tweet_mode = 'extended').items(3200)):
 
+            status = api.get_status(tweet.id)
+
             try:
-                status = api.get_status(tweet.id)
-                original_status = api.get_status(status.retweeted_status.id)
-                created_at = original_status.created_at
+                created_at = api.get_status(status.retweeted_status.id).created_at
 
                 # Checks if Tweet is in time interval
                 if start < created_at < now:
@@ -38,8 +38,7 @@ class cleanTimeline:
                 time.sleep(2.5)
 
             except AttributeError:
-                print('Tweet is not Retweet.\n')
-                status = api.get_status(tweet.id)
+                print(f'{count}. Tweet is not Retweet.\n')
                 created_at = status.created_at
                 
                 if created_at < start:
