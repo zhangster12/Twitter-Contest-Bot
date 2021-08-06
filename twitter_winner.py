@@ -1,27 +1,27 @@
 from auth import api
-from twitter_clean_timeline import cleanTimeline
 import re, os, time, tweepy
 
 class winner:
     
     def favorite_follow_retweet(self):
-
         blocked_phrase_lower = self.get_list_lower('twitterFilter.txt')
 
         # Search filters and number
         search_terms = ' OR '.join(['retweet to win', '#retweettowin'])
-        filters = ' AND '.join(['-attempt', '-buy', '-caption', '-click', '-comment', '-comments', '-confirm', '-donate', '-download',
+        filters = ' AND '.join(['-attempt', '-buy', '-caption', '-click', '-comment', '-confirm', '-donate', '-download',
             '-fill', '-form', '-guess', '-help', '-join', '-pinned', '-poll', '-post', '-predict', '-quote', '-recreate', '-refer',
-            '-register', '-reply', '-screenshot', '-send', '-share', '-spread', '-sub', '-submit', '-subscribe', '-tag', '-tagging',
-            '-target', '-tell', '-upload', '-vote', '-votes', '-voting',
+            '-register', '-reply', '-screenshot', '-send', '-share', '-spread', '-sub', '-submit', '-subscribe', '-tag',
+            '-target', '-tell', '-upload', '-vote', '-votes',
             '-filter:quote', '-filter:replies', '-filter:retweets'])
 
+        # Cannot exceed 500 characters
         query = search_terms + ' ' + filters
 
         try:
             # Blocked users' screen names
-            blocked_screen_names = [b.screen_name for b in tweepy.Cursor(api.blocks).items()]
-
+            #blocked_screen_names = [b.screen_name for b in tweepy.Cursor(api.blocks).items()]
+            blocked_screen_names = []
+            
             os.system('cls')
 
             # TwitterBot
@@ -47,7 +47,7 @@ class winner:
                     elif status.favorited or status.retweeted:
                         print(f'{count}. Tweet has already been favorited or Retweeted.\n\n----------\n')
                         api.create_friendship(tweet.user.screen_name)
-                        break
+                        continue
 
                     api.create_friendship(tweet.user.screen_name) # Follows tweet's user screen name
                     tweet.favorite() # Favorites the Tweet
@@ -56,11 +56,11 @@ class winner:
                     time.sleep(2.5)
 
                 except tweepy.TweepError as e:
-                    print(str(e) + '\n\n----------\n')
+                    print(f'{count}. str(e)\n\n----------\n')
                     continue
     
         except tweepy.TweepError as e:
-            print(str(e) + '\n\n----------\n')
+            print(str(e) + '\n')
 
     @staticmethod
     def sort_file(file):

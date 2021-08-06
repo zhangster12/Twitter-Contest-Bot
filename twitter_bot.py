@@ -23,4 +23,4 @@ elif day in [7, 14, 21, 28] or api.me().favourites_count > 6000 or api.me().stat
 else:
     win.favorite_follow_retweet()
 
-print(win.sort_file('twitterFilter.txt'))
+print(win.sort_file('twitterFilter.txt') + '\n')

@@ -16,4 +16,3 @@ py twitter_bot.py
 ```
 ## Things to add:
  - Block polls.
- - Unretweet and unfavorite for Tweepy error code 403
