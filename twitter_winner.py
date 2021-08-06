@@ -8,10 +8,9 @@ class winner:
 
         # Search filters and number
         search_terms = ' OR '.join(['retweet to win', '#retweettowin'])
-        filters = ' AND '.join(['-attempt', '-buy', '-caption', '-click', '-comment', '-confirm', '-donate', '-download',
-            '-fill', '-form', '-guess', '-help', '-join', '-pinned', '-poll', '-post', '-predict', '-quote', '-recreate', '-refer',
-            '-register', '-reply', '-screenshot', '-send', '-share', '-spread', '-sub', '-submit', '-subscribe', '-tag',
-            '-target', '-tell', '-upload', '-vote', '-votes',
+        filters = ' AND '.join(['-attempt', '-buy', '-caption', '-click', '-comment', '-confirm', '-donate', '-download', '-fill',
+            '-form', '-guess', '-help', '-join', '-pinned', '-poll', '-post', '-predict', '-quote', '-refer', '-register', '-reply',
+            '-screenshot', '-send', '-share', '-spread', '-sub', '-submit', '-subscribe', '-tag', '-tell', '-upload', '-vote', '-votes',
             '-filter:quote', '-filter:replies', '-filter:retweets'])
 
         # Cannot exceed 500 characters
@@ -19,8 +18,7 @@ class winner:
 
         try:
             # Blocked users' screen names
-            #blocked_screen_names = [b.screen_name for b in tweepy.Cursor(api.blocks).items()]
-            blocked_screen_names = []
+            blocked_screen_names = [b.screen_name for b in tweepy.Cursor(api.blocks).items()]
             
             os.system('cls')
 
