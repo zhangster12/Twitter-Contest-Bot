@@ -14,7 +14,7 @@ class cleanTimeline:
 
         for count, tweet in enumerate(tweepy.Cursor(api.user_timeline, tweet_mode = 'extended').items(3200)):
 
-            status = api.get_status(tweet.id)
+            status = api.get_status(tweet.id, tweet_mode = 'extended')
 
             try:
                 created_at = api.get_status(status.retweeted_status.id).created_at

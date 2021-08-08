@@ -28,7 +28,7 @@ class winner:
                 tweet_mode = 'extended').items(500)):
 
                 try:
-                    status = api.get_status(tweet.id)
+                    status = api.get_status(tweet.id, tweet_mode = 'extended')
                     combined_tweet = self.deEmojify(' '.join([tweet.user.name, tweet.user.screen_name, tweet.user.description, tweet.full_text]))
 
                     # User screen name is blocked
