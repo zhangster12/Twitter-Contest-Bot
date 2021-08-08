@@ -19,7 +19,7 @@ class winner:
         try:
             # Blocked users' screen names
             blocked_screen_names = [b.screen_name for b in tweepy.Cursor(api.blocks).items()]
-            
+
             os.system('cls')
 
             # TwitterBot
@@ -30,7 +30,7 @@ class winner:
                 try:
                     status = api.get_status(tweet.id, tweet_mode = 'extended')
                     combined_tweet = self.deEmojify(' '.join([tweet.user.name, tweet.user.screen_name, tweet.user.description, tweet.full_text]))
-
+                    
                     # User screen name is blocked
                     if tweet.user.screen_name in blocked_screen_names:
                         print(f'{count}. {tweet.user.screen_name} is blocked.\n\n----------\n')
@@ -42,8 +42,8 @@ class winner:
                         continue
                     
                     # User doesn't have enough followers
-                    elif tweet.user.followers_count < 50 or tweet.user.followers_count/tweet.user.friends_count < 1 or status.user.default_profile_image:
-                        print(f'{count}. {tweet.user.screen_name} does not have enough followers or is default.\n\n----------\n')
+                    elif tweet.user.followers_count < 50 or tweet.user.followers_count/tweet.user.friends_count < 1 or status.user.default_profile_image or not tweet.user.description:
+                        print(f'{count}. {tweet.user.screen_name} does not have enough followers, is default, has no description.\n\n----------\n')
                         continue
 
                     # Tweet has already been favorited or Retweeted
@@ -52,7 +52,7 @@ class winner:
                         api.create_friendship(tweet.user.screen_name)
                         continue
 
-                    api.create_friendship(tweet.user.screen_name) # Follows tweet's user screen name
+                    api.create_friendship(tweet.user.id) # Follows tweet's user screen name
                     tweet.favorite() # Favorites the Tweet
                     tweet.retweet() # Retweets the Tweet
                     print(self.deEmojify(f'{count}. {tweet.user.name} - @{tweet.user.screen_name}:\n\n{tweet.full_text}\n\n----------\n')) # Prints screen name and Tweet
