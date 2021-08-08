@@ -40,6 +40,11 @@ class winner:
                     elif any(phrase in combined_tweet.lower() for phrase in blocked_phrase_lower):
                         print(f'{count}. Tweet contains blocked phrases.\n\n----------\n')
                         continue
+                    
+                    # User doesn't have enough followers
+                    elif tweet.user.followers_count < 50:
+                        print(f'{count}. {tweet.user.screen_name} does not have enough followers.')
+                        continue
 
                     # Tweet has already been favorited or Retweeted
                     elif status.favorited or status.retweeted:
