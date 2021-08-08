@@ -62,7 +62,7 @@ class winner:
 
     @staticmethod
     def sort_file(file):
-        file_list = open(file, 'r').read().splitlines()
+        file_list = open(file, 'r', encoding = 'utf-8', errors = 'ignore').read().splitlines()
         file_list = list(set(file_list)) # Gets rid of duplicates
         file_list.sort(key = str.casefold) # Sorts alphabetically
 
@@ -73,7 +73,7 @@ class winner:
     
     @staticmethod
     def get_list_lower(file):
-        list = open(file, 'r').read().splitlines()
+        list = open(file, 'r', encoding = 'utf-8', errors = 'ignore').read().splitlines()
         list = [string.lower() for string in list] # Makes all items lowercase
         return list
     
