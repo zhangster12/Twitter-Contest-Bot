@@ -42,8 +42,8 @@ class winner:
                         continue
                     
                     # User doesn't have enough followers
-                    elif tweet.user.followers_count < 50:
-                        print(f'{count}. {tweet.user.screen_name} does not have enough followers.')
+                    elif tweet.user.followers_count < 50 or tweet.user.followers_count/tweet.user.friends_count < 1:
+                        print(f'{count}. {tweet.user.screen_name} does not have enough followers.\n\n----------\n')
                         continue
 
                     # Tweet has already been favorited or Retweeted
