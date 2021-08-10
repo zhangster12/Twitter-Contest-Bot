@@ -7,10 +7,10 @@ class winner:
         blocked_phrase_lower = self.get_list_lower('twitterFilter.txt')
 
         # Search filters and number
-        search_terms = ' OR '.join(['retweet to win', '#retweettowin'])
+        search_terms = ' OR '.join(['retweet to win', 'rt to win' '#retweettowin', '#giveaway'])
         filters = ' AND '.join(['-attempt', '-buy', '-caption', '-click', '-comment', '-confirm', '-donate', '-download', '-fill',
             '-form', '-guess', '-help', '-join', '-pinned', '-poll', '-post', '-predict', '-quote', '-refer', '-register', '-reply',
-            '-screenshot', '-send', '-share', '-spread', '-sub', '-submit', '-subscribe', '-tag', '-tell', '-upload', '-vote', '-votes',
+            '-screenshot', '-send', '-share', '-spread', '-sub', '-submit', '-subscribe',
             '-filter:quote', '-filter:replies', '-filter:retweets'])
 
         # Cannot exceed 500 characters
@@ -52,7 +52,11 @@ class winner:
                         api.create_friendship(tweet.user.screen_name)
                         continue
 
-                    api.create_friendship(tweet.user.id) # Follows tweet's user screen name
+                    api.create_friendship(tweet.user.id) # Follows Tweet's user screen name
+                    
+                    for user in status.entities['user_mentions']: # Follows all user mentions
+                        api.create_friendship(user['id'])
+                    
                     tweet.favorite() # Favorites the Tweet
                     tweet.retweet() # Retweets the Tweet
                     print(self.deEmojify(f'{count}. {tweet.user.name} - @{tweet.user.screen_name}:\n\n{tweet.full_text}\n\n----------\n')) # Prints screen name and Tweet
