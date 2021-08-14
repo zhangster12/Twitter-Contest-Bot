@@ -37,6 +37,7 @@ class cleanTimeline:
                 print(f'{created_at}:\n\n{tweet.full_text}\n') # Prints screen name and Tweet
                 time.sleep(2.5)
 
+            # If Tweet isn't Retweet
             except AttributeError:
                 print(f'{count}. Tweet is not Retweet.\n')
                 created_at = status.created_at

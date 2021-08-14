@@ -1,38 +1,42 @@
 from auth import api
+from datetime import datetime, timedelta
 import re, os, time, tweepy
 
 class winner:
     
     def favorite_follow_retweet(self):
         blocked_phrase_lower = self.get_list_lower('twitterFilter.txt')
+        
+        now = datetime.utcnow()
+        start = now - timedelta(days = 31)
 
         # Search filters and number
-        search_terms = ' OR '.join(['retweet to win', 'rt to win' '#retweettowin', '#giveaway'])
-        filters = ' AND '.join(['-attempt', '-buy', '-caption', '-click', '-comment', '-confirm', '-donate', '-download', '-fill',
-            '-form', '-guess', '-help', '-join', '-pinned', '-poll', '-post', '-predict', '-quote', '-refer', '-register', '-reply',
-            '-screenshot', '-send', '-share', '-spread', '-sub', '-submit', '-subscribe',
+        search_terms = ' OR '.join(['retweet to win', '#retweettowin', '#giveaway'])
+        filters = ' AND '.join(['-attempt', '-buy', '-caption', '-click', '-comment', '-comments' '-confirm', '-donate', '-download', '-fill',
+            '-form', '-guess', '-help', '-join', '-link', '-pinned', '-poll', '-post', '-predict', '-quote', '-refer', '-register', '-reply',
+            '-screenshot', '-send', '-share', '-spread', '-sub', '-submit', '-subscribe', '-vote',
             '-filter:quote', '-filter:replies', '-filter:retweets'])
 
         # Cannot exceed 500 characters
         query = search_terms + ' ' + filters
+        print(len(query))
 
         try:
             # Blocked users' screen names
-            blocked_screen_names = [b.screen_name for b in tweepy.Cursor(api.blocks).items()]
+            blocked_id = [b.id for b in tweepy.Cursor(api.blocks).items()]
 
             os.system('cls')
 
             # TwitterBot
 
-            for count, tweet in enumerate(tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 'recent',
-                tweet_mode = 'extended').items(500)):
+            for count, tweet in enumerate(tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 'recent', tweet_mode = 'extended').items(500)):
 
                 try:
                     status = api.get_status(tweet.id, tweet_mode = 'extended')
                     combined_tweet = self.deEmojify(' '.join([tweet.user.name, tweet.user.screen_name, tweet.user.description, tweet.full_text]))
-                    
+
                     # User screen name is blocked
-                    if tweet.user.screen_name in blocked_screen_names:
+                    if tweet.user.id in blocked_id:
                         print(f'{count}. {tweet.user.screen_name} is blocked.\n\n----------\n')
                         continue
 
@@ -42,8 +46,13 @@ class winner:
                         continue
                     
                     # User doesn't have enough followers
-                    elif tweet.user.followers_count < 50 or tweet.user.followers_count/tweet.user.friends_count < 1 or status.user.default_profile_image or not tweet.user.description:
-                        print(f'{count}. {tweet.user.screen_name} does not have enough followers, is default, has no description.\n\n----------\n')
+                    elif tweet.user.followers_count < 100 or tweet.user.followers_count/tweet.user.friends_count < 1 or status.user.default_profile_image or not tweet.user.description or start < status.user.created_at < now:
+                        print(f'{count}. {tweet.user.screen_name} does not have enough followers, is default, has no description, too recent.\n\n----------\n')
+                        continue
+                    
+                    # Tweet contains sensitive media
+                    elif hasattr(tweet, 'possibly_sensitive') and tweet.possibly_sensitive:
+                        print(f'{count}. Tweet contains sensitive media.\n\n----------\n')
                         continue
 
                     # Tweet has already been favorited or Retweeted
@@ -63,12 +72,17 @@ class winner:
                     time.sleep(2.5)
 
                 except tweepy.TweepError as e:
-                    print(f'{count}. str(e)\n\n----------\n')
+                    print(f'{count}. {str(e)}\n\n----------\n')
+                    continue
+                
+                except ZeroDivisionError as e:
+                    print(f'{count}. {str(e)}\n\n----------\n')
                     continue
     
         except tweepy.TweepError as e:
             print(str(e) + '\n')
 
+    # Sorts a .txt file alphabetically
     @staticmethod
     def sort_file(file):
         file_list = open(file, 'r', encoding = 'utf-8', errors = 'ignore').read().splitlines()
@@ -80,12 +94,14 @@ class winner:
         
         return file + ' is sorted.'
     
+    # Returns a lowercase list
     @staticmethod
     def get_list_lower(file):
         list = open(file, 'r', encoding = 'utf-8', errors = 'ignore').read().splitlines()
         list = [string.lower() for string in list] # Makes all items lowercase
         return list
     
+    # Returns a string without emojis
     @staticmethod
     def deEmojify(text):
         regrex_pattern = re.compile('['

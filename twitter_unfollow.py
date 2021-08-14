@@ -37,6 +37,7 @@ class unfollow:
         else:
             print(f'Following count is at {api.me().friends_count}. No unfollowing needed.')
     
+    # Checks if a user is following the authenticating user
     def following_me(self, screen_name):
         status = api.show_friendship(source_screen_name = screen_name, target_screen_name = self.my_screen_name)
         return status[0].following
