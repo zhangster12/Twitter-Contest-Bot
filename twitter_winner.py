@@ -14,7 +14,7 @@ class winner:
         search_terms = ' OR '.join(['retweet to win', '#retweettowin', '#giveaway'])
         filters = ' AND '.join(['-attempt', '-buy', '-caption', '-click', '-comment', '-comments' '-confirm', '-donate', '-download', '-fill',
             '-form', '-guess', '-help', '-join', '-link', '-pinned', '-poll', '-post', '-predict', '-quote', '-refer', '-register', '-reply',
-            '-screenshot', '-send', '-share', '-spread', '-sub', '-submit', '-subscribe', '-vote',
+            '-screenshot', '-send', '-share', '-spread', '-sub', '-submit', '-subscribe', '-vote', '-votes'
             '-filter:quote', '-filter:replies', '-filter:retweets'])
 
         # Cannot exceed 500 characters
@@ -89,9 +89,10 @@ class winner:
         file_list = list(set(file_list)) # Gets rid of duplicates
         file_list.sort(key = str.casefold) # Sorts alphabetically
 
-        with open(file, 'w') as f:
+        with open(file, 'w', encoding = 'utf-8', errors = 'ignore') as f:
             f.write('\n'.join(file_list))
-        
+        f.close()
+
         return file + ' is sorted.'
     
     # Returns a lowercase list

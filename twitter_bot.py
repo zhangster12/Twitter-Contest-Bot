@@ -15,6 +15,8 @@ os.system('cls')
 
 day = datetime.today().day
 
+print(win.sort_file('twitterFilter.txt') + '\n')
+
 # Run script
 if day == 1 or api.me().friends_count > 3000:
     unfollow.unfollow()
