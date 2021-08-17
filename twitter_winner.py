@@ -6,7 +6,7 @@ class winner:
     
     def favorite_follow_retweet(self):
         blocked_phrase_lower = self.get_list_lower('twitterFilter.txt')
-        
+
         now = datetime.utcnow()
         start = now - timedelta(days = 31)
 
@@ -90,7 +90,7 @@ class winner:
         file_list.sort(key = str.casefold) # Sorts alphabetically
 
         with open(file, 'w', encoding = 'utf-8', errors = 'ignore') as f:
-            f.write('\n'.join(file_list))
+            f.write('\n'.join(file_list))        
         f.close()
 
         return file + ' is sorted.'
