@@ -19,7 +19,6 @@ class winner:
 
         # Cannot exceed 500 characters
         query = search_terms + ' ' + filters
-        print(len(query))
 
         try:
             # Blocked users' screen names
