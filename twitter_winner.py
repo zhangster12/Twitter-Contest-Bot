@@ -3,10 +3,9 @@ from datetime import datetime, timedelta
 import re, os, time, tweepy
 
 class winner:
-    
+
     def favorite_follow_retweet(self):
         blocked_phrase_lower = self.get_list_lower('twitterFilter.txt')
-
         now = datetime.utcnow()
         start = now - timedelta(days = 31)
 
@@ -17,8 +16,7 @@ class winner:
             '-screenshot', '-send', '-share', '-spread', '-sub', '-submit', '-subscribe', '-vote', '-votes'
             '-filter:quote', '-filter:replies', '-filter:retweets'])
 
-        # Cannot exceed 500 characters
-        query = search_terms + ' ' + filters
+        query = search_terms + ' ' + filters # Cannot exceed 500 characters
 
         try:
             # Blocked users' screen names
@@ -43,12 +41,12 @@ class winner:
                     elif any(p in combined_tweet.lower() for p in blocked_phrase_lower):
                         print(f'{count}. Tweet contains blocked phrases.\n\n----------\n')
                         continue
-                    
+
                     # User doesn't have enough followers
                     elif tweet.user.followers_count < 100 or tweet.user.followers_count/tweet.user.friends_count < 1 or status.user.default_profile_image or not tweet.user.description or start < status.user.created_at < now:
                         print(f'{count}. {tweet.user.screen_name} does not have enough followers, is default, has no description, too recent.\n\n----------\n')
                         continue
-                    
+
                     # Tweet contains sensitive media
                     elif hasattr(tweet, 'possibly_sensitive') and tweet.possibly_sensitive:
                         print(f'{count}. Tweet contains sensitive media.\n\n----------\n')
@@ -61,10 +59,10 @@ class winner:
                         continue
 
                     api.create_friendship(tweet.user.id) # Follows Tweet's user screen name
-                    
+
                     for user in status.entities['user_mentions']: # Follows all user mentions
                         api.create_friendship(user['id'])
-                    
+
                     tweet.favorite() # Favorites the Tweet
                     tweet.retweet() # Retweets the Tweet
                     print(self.deEmojify(f'{count}. {tweet.user.name} - @{tweet.user.screen_name}:\n\n{tweet.full_text}\n\n----------\n')) # Prints screen name and Tweet
@@ -73,7 +71,7 @@ class winner:
                 except tweepy.TweepError as e:
                     print(f'{count}. {str(e)}\n\n----------\n')
                     continue
-                
+
                 except ZeroDivisionError as e:
                     print(f'{count}. {str(e)}\n\n----------\n')
                     continue
@@ -89,18 +87,18 @@ class winner:
         file_list.sort(key = str.casefold) # Sorts alphabetically
 
         with open(file, 'w', encoding = 'utf-8', errors = 'ignore') as f:
-            f.write('\n'.join(file_list))        
+            f.write('\n'.join(file_list))
         f.close()
 
         return file + ' is sorted.'
-    
+
     # Returns a lowercase list
     @staticmethod
     def get_list_lower(file):
         list = open(file, 'r', encoding = 'utf-8', errors = 'ignore').read().splitlines()
         list = [string.lower() for string in list] # Makes all items lowercase
         return list
-    
+
     # Returns a string without emojis
     @staticmethod
     def deEmojify(text):

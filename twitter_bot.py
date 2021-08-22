@@ -12,9 +12,7 @@ unfollow = unfollow()
 clean_timeline = cleanTimeline()
 
 os.system('cls')
-
 day = datetime.today().day
-
 print(win.sort_file('twitterFilter.txt') + '\n')
 
 # Run script
