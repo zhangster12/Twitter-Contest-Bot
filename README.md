@@ -10,7 +10,7 @@ git commit -m "Edited file"
 git push origin
 ```
 
-## To Retweet Tweets, unfollow users, Unretweet and unfavorite Tweets:
+## To Retweet Tweets, unfollow users, Unretweet, and unfavorite Tweets:
 ```
 py twitter_bot.py
 ```
