@@ -26,7 +26,7 @@ class winner:
 
             # TwitterBot
 
-            for count, tweet in enumerate(tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 'recent', tweet_mode = 'extended').items(500)):
+            for count, tweet in enumerate(tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 'recent', tweet_mode = 'extended').items(1000)):
 
                 try:
                     status = api.get_status(tweet.id, tweet_mode = 'extended')

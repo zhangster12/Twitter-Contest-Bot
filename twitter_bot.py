@@ -1,4 +1,3 @@
-# Run: py twitter_bot.py
 from auth import api
 from datetime import datetime
 from twitter_clean_timeline import cleanTimeline
@@ -13,6 +12,8 @@ clean_timeline = cleanTimeline()
 
 os.system('cls')
 day = datetime.today().day
+
+print('Twitter Bot for ' + api.me().screen_name + '\n')
 print(win.sort_file('twitterFilter.txt') + '\n')
 
 # Run script
@@ -24,3 +25,4 @@ else:
     win.favorite_follow_retweet()
 
 print(win.sort_file('twitterFilter.txt') + '\n')
+input('Enter to continue.')

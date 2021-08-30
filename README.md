@@ -1,7 +1,7 @@
 # Twitter-Contest-Bot
-Twitter bot for Retweeting and liking Twitter contests to win free stuff.__
-Only accept the reward if it's completely free, no shipping, joining.__
-Use English in twitterFilter.txt.__
+Twitter bot for Retweeting and liking Twitter contests to win free stuff
+Only accept the reward if it's completely free, no shipping, joining
+Use English in twitterFilter.txt
 
 ## To push updates to GitHub:
 ```
