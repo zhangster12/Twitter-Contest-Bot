@@ -1,4 +1,4 @@
-from key import consumer_key, consumer_secret, access_token, access_token_secret
+from key import bearer_token, consumer_key, consumer_secret, access_token, access_token_secret
 import tweepy
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
