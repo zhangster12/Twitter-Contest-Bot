@@ -12,6 +12,8 @@ class cleanTimeline:
         start = now - timedelta(days = 31)
         print(f'Time Frame: {start} - {now}\n')
 
+        used = False
+
         for count, tweet in enumerate(tweepy.Cursor(api.user_timeline, tweet_mode = 'extended').items(3200)):
 
             status = api.get_status(tweet.id, tweet_mode = 'extended')
@@ -35,6 +37,7 @@ class cleanTimeline:
                     print(f'{count}. Tweet has been Unretweeted.\n')
                 
                 print(f'{created_at}:\n\n{tweet.full_text}\n') # Prints screen name and Tweet
+                used = True
                 time.sleep(2.5)
 
             # If Tweet isn't Retweet
@@ -52,3 +55,6 @@ class cleanTimeline:
             except tweepy.TweepError as e:
                 print(str(e) + '\n\n----------\n')
                 continue
+        
+        if used:
+            cleanTimeline().unfavorite_unretweet()

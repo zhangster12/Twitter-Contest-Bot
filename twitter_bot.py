@@ -3,7 +3,7 @@ from datetime import datetime
 from twitter_clean_timeline import cleanTimeline
 from twitter_unfollow import unfollow
 from twitter_winner import winner
-import os
+import os, time
 
 # Create class instance
 win = winner()
@@ -24,5 +24,7 @@ elif day in [7, 14, 21, 28] or api.me().favourites_count > 6000 or api.me().stat
 else:
     win.favorite_follow_retweet()
 
-print(win.sort_file('twitterFilter.txt') + '\n')
-input('Enter to continue.')
+input('Enter to continue.\n')
+
+print('Goodbye!')
+time.sleep(5)
