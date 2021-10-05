@@ -1,7 +1,5 @@
 # Twitter-Contest-Bot
 Twitter-Contest-Bot is a bot for automating Retweeting and liking Twitter contests to win free prizes.
-Only accept the reward if it's completely free, no shipping, joining.
-Use English in `twitterFilter.txt`.
 
 ## Getting Started
 Make sure Tweepy is installed.
@@ -12,6 +10,8 @@ npm install tweepy
 ```
 
 ## Usage
+Only accept the reward if it's completely free, no shipping, joining.
+Use English in `twitterFilter.txt`.
 
 ### Retweet Tweets, unfollow users, Unretweet, and unfavorite Tweets:
 ```
@@ -26,7 +26,7 @@ git push origin
 ```
 
 ## Roadmap
- - [] Block polls
+- [] Block polls
 
 ## Contact
 
