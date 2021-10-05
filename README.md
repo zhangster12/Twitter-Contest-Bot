@@ -2,7 +2,7 @@
 Twitter-Contest-Bot is a bot for automating Retweeting and liking Twitter contests to win free prizes.
 
 ## Getting Started
-Make sure Tweepy is installed.
+Make sure Tweepy is installed and create `twitterFilter.txt`.
 
 ### Prerequisites
 ```
