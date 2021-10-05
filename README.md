@@ -26,7 +26,7 @@ git push origin
 ```
 
 ## Roadmap
-- [] Block polls
+- [ ] Block polls
 
 ## Contact
 
