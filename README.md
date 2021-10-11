@@ -29,5 +29,4 @@ git push origin
 - [ ] Block polls
 
 ## Contact
-
 Project Link: [https://github.com/zhangster12/Twitter-Contest-Bot](https://github.com/zhangster12/Twitter-Contest-Bot)
