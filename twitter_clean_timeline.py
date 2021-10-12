@@ -1,17 +1,22 @@
-from os import stat
+# Unfavorites, Unretweets, deletes Tweets from over a month ago
+
 from auth import api
 from datetime import datetime, timedelta
-import time, tweepy
+import os, time, tweepy
 
 class cleanTimeline:
 
     @staticmethod
     def unfavorite_unretweet():
 
-        status_list = []
+        # status_list = []
 
-        for status in tweepy.Cursor(api.home_timeline, tweet_mode = 'extended').items():
-            status_list.append(status)
+        # for status in tweepy.Cursor(api.user_timeline, screen_name = api.me().screen_name, exclude_replies = True, tweet_mode = 'extended').items(3200):
+        #     status_list.append(status)
+
+        # os.system('cls')
+
+        # print(len(status_list))
 
         # Get time interval
         now = datetime.utcnow()
@@ -20,43 +25,41 @@ class cleanTimeline:
 
         used = False
 
-        for count, tweet in enumerate(reversed(status_list)):
+        for count, tweet in enumerate(tweepy.Cursor(api.user_timeline, screen_name = api.me().screen_name, exclude_replies = True, tweet_mode = 'extended').items(3200)):
 
             status = api.get_status(tweet.id, tweet_mode = 'extended')
-
+            
             try:
+                # If it's not a Retweet
+                if not hasattr(status, 'retweeted_status'):
+                    print(f'{count}. Tweet is not Retweet.\n')
+
+                    if status.created_at < start:
+                        api.destroy_status(status.id)
+                        print(f'{status.created_at}:\n\n{status.full_text}\nTweet has been deleted.\n')
+
+                    continue
+
                 created_at = api.get_status(status.retweeted_status.id).created_at
 
-                # Checks if Tweet is in time interval
+                # If Tweet is in time interval
                 if start < created_at < now:
                     print(f'{count}. Date is in time interval: {created_at}\n')
                     continue
 
-                # Checks if Tweet is favorited
+                # If Tweet is favorited
                 if status.favorited:
                     api.destroy_favorite(status.id)
                     print(f'{count}. Tweet has been unfavorited.\n')
 
-                # Checks if Tweet is Retweeted
-                if status.retweeted or tweet.full_text.startswith('RT @'):
+                # If Tweet is Retweeted
+                if status.retweeted or status.full_text.startswith('RT @'):
                     api.destroy_status(status.id)
                     print(f'{count}. Tweet has been Unretweeted.\n')
 
-                print(f'{created_at}:\n\n{tweet.full_text}\n') # Prints screen name and Tweet
+                print(f'{created_at}:\n\n{status.full_text}\n') # Prints screen name and Tweet
                 used = True
                 time.sleep(2.5)
-
-            # If Tweet isn't Retweet
-            except AttributeError:
-                print(f'{count}. Tweet is not Retweet.\n')
-                created_at = status.created_at
-
-                if created_at < start:
-                    api.destroy_status(status.id)
-                    print(f'{created_at}:\n\n{tweet.full_text}\n')
-                    print('Tweet has been deleted.\n')
-
-                continue
 
             except tweepy.TweepError as e:
                 print(str(e) + '\n\n----------\n')

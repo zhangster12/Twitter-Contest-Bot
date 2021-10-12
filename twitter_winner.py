@@ -1,3 +1,5 @@
+# Retweets, favorites, follows users to win contests
+
 from auth import api
 from datetime import datetime, timedelta
 import re, os, time, tweepy
