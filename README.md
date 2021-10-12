@@ -27,6 +27,7 @@ git push origin
 
 ## Roadmap
 - [ ] Block polls
+- [ ] Fix user timeline Tweet limit
 
 ## Contact
 Project Link: [https://github.com/zhangster12/Twitter-Contest-Bot](https://github.com/zhangster12/Twitter-Contest-Bot)

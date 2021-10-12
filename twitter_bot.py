@@ -26,5 +26,5 @@ else:
 
 input('Enter to continue.\n')
 
-print('Goodbye!')
+print('Goodbye!\n')
 time.sleep(5)
