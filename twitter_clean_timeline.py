@@ -9,15 +9,6 @@ class cleanTimeline:
     @staticmethod
     def unfavorite_unretweet():
 
-        # status_list = []
-
-        # for status in tweepy.Cursor(api.user_timeline, screen_name = api.me().screen_name, exclude_replies = True, tweet_mode = 'extended').items(3200):
-        #     status_list.append(status)
-
-        # os.system('cls')
-
-        # print(len(status_list))
-
         # Get time interval
         now = datetime.utcnow()
         start = now - timedelta(days = 31)
@@ -36,7 +27,7 @@ class cleanTimeline:
 
                     if status.created_at < start:
                         api.destroy_status(status.id)
-                        print(f'{status.created_at}:\n\n{status.full_text}\nTweet has been deleted.\n')
+                        print(f'{status.created_at}:\n\n{status.full_text}\n\nTweet has been deleted.\n')
 
                     continue
 

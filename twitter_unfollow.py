@@ -7,24 +7,30 @@ class unfollow:
     my_screen_name = api.me().screen_name
 
     def unfollow(self):
+        
+        friends =  reversed(list(tweepy.Cursor(api.friends).items(api.me().friends_count)))
 
-        if api.me().friends_count > 2000:
+        for count, friend in enumerate(friends):
+            print(friend.screen_name)
+
+        if api.me().friends_count > 1500:
             print(f'Current following count is at {api.me().friends_count}.')
-            for count, friend in enumerate(tweepy.Cursor(api.friends).items(api.me().friends_count)):
+            #for count, friend in enumerate(tweepy.Cursor(api.friends).items(api.me().friends_count)):
+            for count, friend in enumerate(reversed(friends)):
 
-                if count <= 500:
-                    print(f'{count}. User was recently followed.' )
-                    continue
+                # if count <= 500:
+                #     print(f'{count}. User was recently followed.' )
+                #     continue
 
                 # Checks if user is following authenticating user
-                elif self.following_me(friend.screen_name):
+                if self.following_me(friend.screen_name):
                     print(f'{count}. {friend.screen_name} follows {self.my_screen_name}.')
                     continue
 
                 # Randomly skips users
-                elif random.randint(0, 1) == 1:
-                    print(f'{count}. User has been skipped.')
-                    continue
+                # elif random.randint(0, 1) == 1:
+                #     print(f'{count}. User has been skipped.')
+                #     continue
 
                 # Ends if following count is 1500
                 elif api.me().friends_count == 1500:

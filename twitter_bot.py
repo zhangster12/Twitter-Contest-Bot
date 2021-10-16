@@ -13,16 +13,17 @@ clean_timeline = cleanTimeline()
 os.system('cls')
 day = datetime.today().day
 
-print('Twitter Bot for ' + api.me().screen_name + '\n')
-print(win.sort_file('twitterFilter.txt') + '\n')
+print('Twitter Bot for ' + api.me().screen_name + '\n\n' + win.sort_file('twitterFilter.txt') + '\n')
+
+unfollow.unfollow()
 
 # Run script
-if day == 1 or api.me().friends_count > 3000:
-    unfollow.unfollow()
-elif day in [7, 14, 21, 28] or api.me().favourites_count > 5000 or api.me().statuses_count > 5000:
-    clean_timeline.unfavorite_unretweet()
-else:
-    win.favorite_follow_retweet()
+# if day == 1 or api.me().friends_count > 3000:
+#     unfollow.unfollow()
+# elif day in [5, 10, 15, 20, 25, 30] or api.me().favourites_count > 5000 or api.me().statuses_count > 5000:
+#     clean_timeline.unfavorite_unretweet()
+# else:
+#     win.favorite_follow_retweet()
 
 input('Enter to continue.\n')
 
