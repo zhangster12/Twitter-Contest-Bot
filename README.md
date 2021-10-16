@@ -21,7 +21,7 @@ py twitter_bot.py
 ### Push updates to GitHub:
 ```
 git add .
-git commit -m "Edited file"
+git commit -m 'Edited file'
 git push origin
 ```
 

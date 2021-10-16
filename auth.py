@@ -6,3 +6,5 @@ auth.set_access_token(access_token, access_token_secret)
 
 # Controls Twitter account
 api = tweepy.API(auth, wait_on_rate_limit = True, wait_on_rate_limit_notify = True)
+
+my_screen_name = api.me().screen_name

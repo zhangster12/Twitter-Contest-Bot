@@ -1,6 +1,6 @@
 # Unfavorites, Unretweets, deletes Tweets from over a month ago
 
-from auth import api
+from auth import api, my_screen_name
 from datetime import datetime, timedelta
 import os, time, tweepy
 
@@ -16,7 +16,7 @@ class cleanTimeline:
 
         used = False
 
-        for count, tweet in enumerate(tweepy.Cursor(api.user_timeline, screen_name = api.me().screen_name, exclude_replies = True, tweet_mode = 'extended').items(3200)):
+        for count, tweet in enumerate(tweepy.Cursor(api.user_timeline, screen_name = my_screen_name, exclude_replies = True, tweet_mode = 'extended').items(3200)):
 
             status = api.get_status(tweet.id, tweet_mode = 'extended')
             
