@@ -1,5 +1,8 @@
 .vscode/
+__pycache__/
+build
+dist
 key.py
 output
 twitterFilter.txt
-__pycache__/
+twitter_bot.spec

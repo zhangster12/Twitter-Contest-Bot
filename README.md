@@ -18,6 +18,11 @@ Use English in `twitterFilter.txt`.
 py twitter_bot.py
 ```
 
+### Create executable:
+```
+pyinstaller --noconfirm --onedir --console --icon 'twitter-bot.ico' --add-data 'twitterFilter.txt;.' 'twitter_bot.py'
+```
+
 ### Push updates to GitHub:
 ```
 git add .
