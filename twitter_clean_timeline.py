@@ -2,12 +2,15 @@
 
 from auth import api, my_screen_name
 from datetime import datetime, timedelta
-import os, time, tweepy
+from twitter_winner import winner
+import time, tweepy
 
 class cleanTimeline:
 
     @staticmethod
     def unfavorite_unretweet():
+        win = winner()
+        blocked_phrase_lower = win.get_list_lower('twitterFilter.txt')
 
         # Get time interval
         now = datetime.utcnow()
@@ -19,7 +22,8 @@ class cleanTimeline:
         for count, tweet in enumerate(tweepy.Cursor(api.user_timeline, screen_name = my_screen_name, exclude_replies = True, tweet_mode = 'extended').items(3200)):
 
             status = api.get_status(tweet.id, tweet_mode = 'extended')
-            
+            combined_tweet = win.deEmojify(' '.join([status.user.name, status.user.screen_name, status.user.description, status .full_text]))
+
             try:
                 # If it's not a Retweet
                 if not hasattr(status, 'retweeted_status'):
@@ -33,8 +37,8 @@ class cleanTimeline:
 
                 created_at = api.get_status(status.retweeted_status.id).created_at
 
-                # If Tweet is in time interval
-                if start < created_at < now:
+                # If Tweet is in time interval and doesn't have blocked phrases
+                if start < created_at < now and not any(p in combined_tweet.lower() for p in blocked_phrase_lower):
                     print(f'{count}. Date is in time interval: {created_at}\n')
                     continue
 
