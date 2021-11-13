@@ -34,7 +34,7 @@ class unfollow:
                     print(f'{count}. {friend.screen_name} has been unfollowed.')
                     time.sleep(2.5)
         else:
-            print(f'Following count is at {api.me().friends_count}. No unfollowing needed.')
+            print(f'Following count is at {api.me().friends_count}. No unfollowing needed.\n')
 
     # Checks if a user is following the authenticating user
     def following_me(self, screen_name):
