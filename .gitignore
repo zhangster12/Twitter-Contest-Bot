@@ -5,5 +5,5 @@ dist
 key.py
 output
 twitterFilter.txt
-twitter_bot/twitterFilter.txt
+twitter_bot/
 twitter_bot.spec
