@@ -27,7 +27,7 @@ pyinstaller --noconfirm --onedir --console --icon 'twitter-bot.ico' --add-data '
 ```
 git add .
 git commit -m 'Edited file'
-git push origin mainz
+git push origin
 ```
 
 ## Roadmap
