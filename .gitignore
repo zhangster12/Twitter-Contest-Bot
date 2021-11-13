@@ -4,5 +4,4 @@ build
 dist
 key.py
 output
-twitterFilter.txt
 twitter_bot.spec
