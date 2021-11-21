@@ -1,8 +1,10 @@
-from key import bearer_token, consumer_key, consumer_secret, access_token, access_token_secret
-import tweepy
+from dotenv import load_dotenv
+import os, tweepy
 
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
+load_dotenv('.env')
+
+auth = tweepy.OAuthHandler(os.getenv('consumer_key'), os.getenv('consumer_secret'))
+auth.set_access_token(os.getenv('access_token'), os.getenv('access_token_secret'))
 
 # Controls Twitter account
 api = tweepy.API(auth, wait_on_rate_limit = True, wait_on_rate_limit_notify = True)

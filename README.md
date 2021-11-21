@@ -6,6 +6,7 @@ Install Tweepy and create `twitterFilter.txt`.
 
 ### Prerequisites
 ```
+npm install dotenv
 npm install tweepy
 ```
 

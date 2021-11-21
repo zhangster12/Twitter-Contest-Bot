@@ -1,9 +1,12 @@
+.env
 .vscode/
 __pycache__/
 build
 dist
 key.py
+node_modules
 output
+package-lock.json
 twitterFilter.txt
-twitter_bot/
 twitter_bot.spec
+twitter_bot/
