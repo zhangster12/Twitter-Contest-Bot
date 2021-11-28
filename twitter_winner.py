@@ -1,12 +1,20 @@
-# Retweets, favorites, follows users to win contests
+'''Retweets, favorites, follows users to win contests'''
+# Import statements
+import re
+import os
+import time
+from datetime import datetime, timedelta
+
+import tweepy
 
 from auth import api
-from datetime import datetime, timedelta
-import re, os, time, tweepy
 
-class winner:
+class Winner:
+    '''Retweets, favorites, follows users and contains supporting methods'''
 
     def favorite_follow_retweet(self):
+        '''Favorites, follows, Retweets'''
+
         blocked_phrase_lower = self.get_list_lower('twitterFilter.txt')
         now = datetime.utcnow()
         start = now - timedelta(days = 31)
@@ -32,7 +40,7 @@ class winner:
 
                 try:
                     status = api.get_status(tweet.id, tweet_mode = 'extended')
-                    combined_tweet = self.deEmojify(' '.join([tweet.user.name, tweet.user.screen_name, tweet.user.description, tweet.full_text]))
+                    combined_tweet = self.deemojify(' '.join([tweet.user.name, tweet.user.screen_name, tweet.user.description, tweet.full_text]))
 
                     # User screen name is blocked
                     if tweet.user.id in blocked_id:
@@ -40,22 +48,22 @@ class winner:
                         continue
 
                     # Tweet contains blocked phrases
-                    elif any(p in combined_tweet.lower() for p in blocked_phrase_lower):
+                    if any(p in combined_tweet.lower() for p in blocked_phrase_lower):
                         print(f'{count}. Tweet contains blocked phrases.\n\n----------\n')
                         continue
 
                     # User doesn't have enough followers
-                    elif tweet.user.followers_count < 100 or tweet.user.followers_count/tweet.user.friends_count < 1 or status.user.default_profile_image or not tweet.user.description or start < status.user.created_at < now:
+                    if tweet.user.followers_count < 100 or tweet.user.followers_count/tweet.user.friends_count < 1 or status.user.default_profile_image or not tweet.user.description or start < status.user.created_at < now:
                         print(f'{count}. {tweet.user.screen_name} does not have enough followers, is default, has no description, too recent.\n\n----------\n')
                         continue
 
                     # Tweet contains sensitive media
-                    elif hasattr(tweet, 'possibly_sensitive') and tweet.possibly_sensitive:
+                    if hasattr(tweet, 'possibly_sensitive') and tweet.possibly_sensitive:
                         print(f'{count}. Tweet contains sensitive media.\n\n----------\n')
                         continue
 
                     # Tweet has already been favorited or Retweeted
-                    elif status.favorited or status.retweeted:
+                    if status.favorited or status.retweeted:
                         print(f'{count}. Tweet has already been favorited or Retweeted.\n\n----------\n')
                         api.create_friendship(tweet.user.screen_name)
                         continue
@@ -67,43 +75,43 @@ class winner:
 
                     tweet.favorite() # Favorites the Tweet
                     tweet.retweet() # Retweets the Tweet
-                    print(self.deEmojify(f'{count}. {tweet.user.name} - @{tweet.user.screen_name}:\n\n{tweet.full_text}\n\n----------\n')) # Prints screen name and Tweet
+                    print(self.deemojify(f'{count}. {tweet.user.name} - @{tweet.user.screen_name}:\n\n{tweet.full_text}\n\n----------\n')) # Prints screen name and Tweet
                     time.sleep(2.5)
 
-                except tweepy.TweepError as e:
-                    print(f'{count}. {str(e)}\n\n----------\n')
+                except tweepy.TweepError as error:
+                    print(f'{count}. {str(error)}\n\n----------\n')
                     continue
 
-                except ZeroDivisionError as e:
-                    print(f'{count}. {str(e)}\n\n----------\n')
+                except ZeroDivisionError as error:
+                    print(f'{count}. {str(error)}\n\n----------\n')
                     continue
-    
-        except tweepy.TweepError as e:
-            print(str(e) + '\n')
 
-    # Sorts a .txt file alphabetically
+        except tweepy.TweepError as error:
+            print(str(error) + '\n')
+
     @staticmethod
     def sort_file(file):
+        '''Sorts .txt file alphabetically'''
         file_list = open(file, 'r', encoding = 'utf-8', errors = 'ignore').read().splitlines()
         file_list = list(set(file_list)) # Gets rid of duplicates
         file_list.sort(key = str.casefold) # Sorts alphabetically
 
-        with open(file, 'w', encoding = 'utf-8', errors = 'ignore') as f:
-            f.write('\n'.join(file_list))
-        f.close()
+        with open(file, 'w', encoding = 'utf-8', errors = 'ignore') as txt_file:
+            txt_file.write('\n'.join(file_list))
+        txt_file.close()
 
         return file + ' is sorted.'
 
-    # Returns a lowercase list
     @staticmethod
     def get_list_lower(file):
-        list = open(file, 'r', encoding = 'utf-8', errors = 'ignore').read().splitlines()
-        list = [string.lower() for string in list] # Makes all items lowercase
-        return list
+        '''Returns lowercase list'''
+        list_normal = open(file, 'r', encoding = 'utf-8', errors = 'ignore').read().splitlines()
+        list_lower = [string.lower() for string in list_normal] # Makes all items lowercase
+        return list_lower
 
-    # Returns a string without emojis
     @staticmethod
-    def deEmojify(text):
+    def deemojify(text):
+        '''Returns a string without emojis'''
         regrex_pattern = re.compile('['
             u'\U0001F600-\U0001F64F' # Emoticons
             u'\U0001F300-\U0001F5FF' # Symbols and pictographs
