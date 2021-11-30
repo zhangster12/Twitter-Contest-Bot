@@ -1,7 +1,6 @@
 '''Authorizes Twitter account use'''
-import os
 from dotenv import load_dotenv
-import tweepy
+import os, tweepy
 
 load_dotenv('.env')
 

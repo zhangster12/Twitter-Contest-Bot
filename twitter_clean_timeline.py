@@ -1,17 +1,13 @@
 '''Unfavorites, Unretweets, deletes Tweets from over a month ago'''
-import time
-from datetime import datetime, timedelta
-
-import tweepy
-
 from auth import api, my_screen_name
-from twitter_winner import winner
+from datetime import datetime, timedelta
+from twitter_winner import get_list_lower, deemojify
+import time, tweepy
 
 def unfavorite_unretweet():
     '''Unfavorites, Unretweets, deletes Tweets from over a month ago'''
 
-    win = winner()
-    blocked_phrase_lower = win.get_list_lower('twitterFilter.txt')
+    blocked_phrase_lower = get_list_lower('twitterFilter.txt')
 
     # Get time interval
     now = datetime.utcnow()
@@ -23,7 +19,7 @@ def unfavorite_unretweet():
     for count, tweet in enumerate(tweepy.Cursor(api.user_timeline, screen_name = my_screen_name, exclude_replies = True, tweet_mode = 'extended').items(3200)):
 
         status = api.get_status(tweet.id, tweet_mode = 'extended')
-        combined_tweet = win.deEmojify(' '.join([status.user.name, status.user.screen_name, status.user.description, status .full_text]))
+        combined_tweet = deemojify(' '.join([status.user.name, status.user.screen_name, status.user.description, status .full_text]))
 
         try:
             # If it's not a Retweet
