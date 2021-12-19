@@ -1,12 +1,12 @@
 '''Retweets, favorites, follows users to win contests'''
 from auth import api
 from datetime import datetime, timedelta
+from twitter_filter import blocked_phrase_lower
 import os, re, time, tweepy
 
 def favorite_follow_retweet():
     '''Favorites, follows, Retweets'''
 
-    blocked_phrase_lower = get_list_lower('twitterFilter.txt')
     now = datetime.utcnow()
     start = now - timedelta(days = 31)
 
@@ -79,24 +79,6 @@ def favorite_follow_retweet():
 
     except tweepy.TweepError as error:
         print(str(error) + '\n')
-
-def sort_file(file):
-    '''Sorts .txt file alphabetically'''
-    file_list = open(file, 'r', encoding = 'utf-8', errors = 'ignore').read().splitlines()
-    file_list = list(set(file_list)) # Gets rid of duplicates
-    file_list.sort(key = str.casefold) # Sorts alphabetically
-
-    with open(file, 'w', encoding = 'utf-8', errors = 'ignore') as txt_file:
-        txt_file.write('\n'.join(file_list))
-    txt_file.close()
-
-    return file + ' is sorted.'
-
-def get_list_lower(file):
-    '''Returns lowercase list'''
-    list_normal = open(file, 'r', encoding = 'utf-8', errors = 'ignore').read().splitlines()
-    list_lower = [string.lower() for string in list_normal] # Makes all items lowercase
-    return list_lower
 
 def deemojify(text):
     '''Returns a string without emojis'''

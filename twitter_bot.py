@@ -3,13 +3,13 @@ from auth import api, my_screen_name
 from datetime import datetime
 from twitter_clean_timeline import unfavorite_unretweet
 from twitter_unfollow import unfollow
-from twitter_winner import favorite_follow_retweet, sort_file
+from twitter_winner import favorite_follow_retweet
 import os, time
 
 os.system('cls')
 day = datetime.today().day
 
-print('Twitter Bot for ' + my_screen_name + '\n\n' + sort_file('twitterFilter.txt') + '\n')
+print('Twitter Bot for ' + my_screen_name + '\n')
 
 # Run script
 if day == 1 or api.me().friends_count > 3000:
@@ -22,4 +22,4 @@ else:
 
 input('Enter to continue.\n')
 print('Goodbye!\n')
-time.sleep(5)
+time.sleep(2.5)

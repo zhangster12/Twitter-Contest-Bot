@@ -21,7 +21,7 @@ py twitter_bot.py
 
 ### Create executable:
 ```
-pyinstaller --noconfirm --onedir --console --icon 'twitter-bot.ico' --add-data '.env;.' --add-data 'twitterFilter.txt;.'  'twitter_bot.py'
+pyinstaller --noconfirm --onedir --console --icon 'C:/Users/dyzha/Documents/Projects/Twitter/twitter-bot.ico'  'C:/Users/dyzha/Documents/Projects/Twitter/twitter_bot.py'
 ```
 
 ### Push updates to GitHub:

@@ -1,18 +1,16 @@
 '''Unfavorites, Unretweets, deletes Tweets from over a month ago'''
 from auth import api, my_screen_name
 from datetime import datetime, timedelta
-from twitter_winner import get_list_lower, deemojify
+from twitter_filter import blocked_phrase_lower
+from twitter_winner import deemojify
 import time, tweepy
 
 def unfavorite_unretweet():
     '''Unfavorites, Unretweets, deletes Tweets from over a month ago'''
 
-    blocked_phrase_lower = get_list_lower('twitterFilter.txt')
-
     # Get time interval
     now = datetime.utcnow()
     start = now - timedelta(days = 31)
-    print(f'Time Frame: {start} - {now}\n')
 
     used = False
 
