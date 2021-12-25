@@ -26,6 +26,7 @@ pyinstaller --noconfirm --onedir --console --icon 'C:/Users/dyzha/Documents/Proj
 
 ### Push updates to GitHub:
 ```
+py get_list.py
 git add .
 git commit -m 'Edited file'
 git push origin
