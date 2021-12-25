@@ -26,6 +26,8 @@ git add .
 git commit -m 'Edited file'
 git push origin
 pyinstaller --noconfirm --onedir --console --icon 'twitter-bot.ico'  'twitter_bot.py'
+del 'build'
+
 ```
 
 ## Roadmap
