@@ -19,15 +19,14 @@ Use English in `twitterFilter.txt`.
 py twitter_bot.py
 ```
 
-### Push updates to GitHub:
+### Push updates to GitHub, create executable, reorganizes files, creates shortcut
 ```
 py get_list.py
 git add .
 git commit -m 'Edited file'
 git push origin
 pyinstaller --noconfirm --onedir --console --icon 'twitter-bot.ico'  'twitter_bot.py'
-del 'build'
-
+del 'build' move 'dist\twitter_bot'
 ```
 
 ## Roadmap
