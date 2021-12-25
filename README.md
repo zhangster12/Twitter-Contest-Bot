@@ -19,17 +19,13 @@ Use English in `twitterFilter.txt`.
 py twitter_bot.py
 ```
 
-### Create executable:
-```
-pyinstaller --noconfirm --onedir --console --icon 'C:/Users/dyzha/Documents/Projects/Twitter/twitter-bot.ico'  'C:/Users/dyzha/Documents/Projects/Twitter/twitter_bot.py'
-```
-
 ### Push updates to GitHub:
 ```
 py get_list.py
 git add .
 git commit -m 'Edited file'
 git push origin
+pyinstaller --noconfirm --onedir --console --icon 'twitter-bot.ico'  'twitter_bot.py'
 ```
 
 ## Roadmap
