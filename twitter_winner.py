@@ -31,7 +31,7 @@ def favorite_follow_retweet():
 
             try:
                 status = api.get_status(tweet.id, tweet_mode = 'extended')
-                combined_tweet = deemojify(' '.join([tweet.user.name, tweet.user.screen_name, tweet.user.description, tweet.full_text]))
+                combined_tweet = deemojify(' | '.join([tweet.user.name, tweet.user.screen_name, tweet.user.description, tweet.full_text]))
 
                 # User screen name is blocked
                 if tweet.user.id in blocked_id:
