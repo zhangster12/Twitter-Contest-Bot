@@ -44,7 +44,10 @@ def favorite_follow_retweet():
                     continue
 
                 # User doesn't have enough followers, follower/following count isn't doesn't have profile pic, description, recently created
-                if tweet.user.followers_count < 100 or tweet.user.followers_count/tweet.user.friends_count < 1 or tweet.user.friends_count == 0 or status.user.default_profile_image or not tweet.user.description or start < status.user.created_at < now:
+                if tweet.user.friends_count == 0 or tweet.user.followers_count < 100 or \
+                    tweet.user.followers_count/tweet.user.friends_count < 1 or status.user.default_profile_image or \
+                    not tweet.user.description or start < status.user.created_at < now:
+
                     print(f'{count}. {tweet.user.screen_name} does not have enough followers, is default, has no description, too recent.\n\n----------\n')
                     continue
 
