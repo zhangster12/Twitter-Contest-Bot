@@ -76,10 +76,6 @@ def favorite_follow_retweet():
                 print(f'{count}. {str(error)}\n\n----------\n')
                 continue
 
-            # except ZeroDivisionError as error:
-            #     print(f'{count}. {str(error)}\n\n----------\n')
-            #     continue
-
     except tweepy.TweepError as error:
         print(str(error) + '\n')
 
