@@ -40,12 +40,12 @@ def unfavorite_unretweet():
             # If Tweet is favorited
             if status.favorited:
                 api.destroy_favorite(status.id)
-                print(f'{count}. Tweet has been unfavorited.\n')
+                print(f'{count}. Retweet has been unfavorited.\n')
 
             # If Tweet is Retweeted
             if status.retweeted or status.full_text.startswith('RT @'):
                 api.destroy_status(status.id)
-                print(f'{count}. Tweet has been Unretweeted.\n')
+                print(f'{count}. Retweet has been Unretweeted.\n')
 
             print(f'{created_at}:\n\n{status.full_text}\n') # Prints screen name and Tweet
             used = True
