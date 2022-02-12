@@ -27,8 +27,8 @@ git commit -m 'Edited file'
 git push origin
 rmdir 'twitter_bot'
 pyinstaller --noconfirm --onedir --console --icon 'twitter-bot.ico'  'twitter_bot.py'
-rmdir 'build'
 move 'dist\twitter_bot'
+rmdir 'build'
 rmdir 'dist'
 ```
 
