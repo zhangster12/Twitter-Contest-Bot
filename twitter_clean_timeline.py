@@ -10,7 +10,7 @@ def unfavorite_unretweet():
 
     # Get time interval
     now = datetime.utcnow()
-    start = now - timedelta(days = 31)
+    start = now - timedelta(days = 25)
 
     used = False
 
