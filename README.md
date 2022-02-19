@@ -23,7 +23,7 @@ py twitter_bot.py
 ```
 py get_list.py
 git add .
-git commit -m 'Edited file'
+git commit -m 'Edited list'
 git push origin
 rmdir 'twitter_bot'
 pyinstaller --noconfirm --onedir --console --icon 'twitter-bot.ico'  'twitter_bot.py'
