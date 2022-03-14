@@ -78,6 +78,8 @@ def favorite_follow_retweet():
 
     except tweepy.TweepError as error:
         print(str(error) + '\n')
+        if str(error).__contains__('An existing connection was forcibly closed by the remote host'):
+            favorite_follow_retweet()
 
 def deemojify(text):
     '''Returns a string without emojis'''
