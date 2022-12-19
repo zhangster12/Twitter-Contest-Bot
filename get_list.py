@@ -4,7 +4,7 @@ import os
 def sort_file(file):
     '''Sorts .txt file alphabetically'''
     file_list = open(file, 'r', encoding = 'utf-8', errors = 'ignore').read().splitlines()
-    file_list = [line.strip() for line in file_list]
+    file_list = [line.strip() for line in file_list] # Removes whitespace in the beginning and end of line
     file_list = list(set(file_list)) # Gets rid of duplicates
     file_list.sort(key = str.casefold) # Sorts alphabetically
 
