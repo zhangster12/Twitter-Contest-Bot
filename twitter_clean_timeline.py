@@ -17,7 +17,7 @@ def unfavorite_unretweet():
     for count, tweet in enumerate(tweepy.Cursor(api.user_timeline, screen_name = my_screen_name, exclude_replies = True, tweet_mode = 'extended').items(3200)):
 
         status = api.get_status(tweet.id, tweet_mode = 'extended')
-        combined_tweet = deemojify(' '.join([status.user.name, status.user.screen_name, status.user.description, status .full_text]))
+        combined_tweet = deemojify(' '.join([status.user.name, status.user.screen_name, status.user.description, status.full_text]))
 
         try:
             # If it's not a Retweet
