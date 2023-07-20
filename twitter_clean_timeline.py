@@ -13,13 +13,13 @@ def unfavorite_unretweet():
     start = now - timedelta(days = 25)
 
     used = False
-
+    
     for count, tweet in enumerate(tweepy.Cursor(api.user_timeline, screen_name = my_screen_name, exclude_replies = True, tweet_mode = 'extended').items(3200)):
-
-        status = api.get_status(tweet.id, tweet_mode = 'extended')
-        combined_tweet = deemojify(' '.join([status.user.name, status.user.screen_name, status.user.description, status.full_text]))
-
+    
         try:
+            status = api.get_status(tweet.id, tweet_mode = 'extended')
+            combined_tweet = deemojify(' '.join([status.user.name, status.user.screen_name, status.user.description, status.full_text]))
+
             # If it's not a Retweet
             if not hasattr(status, 'retweeted_status'):
                 print(f'{count}. Tweet is not Retweet.\n')

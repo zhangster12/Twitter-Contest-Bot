@@ -10,3 +10,4 @@ package-lock.json
 twitterFilter.txt
 twitter_bot.spec
 twitter_bot/
+sandbox.py
