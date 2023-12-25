@@ -21,13 +21,13 @@ def favorite_follow_retweet():
 
     try:
         # Blocked users' screen names
-        blocked_id = [b.id for b in tweepy.Cursor(api.blocks).items()]
+        blocked_id = [b.id for b in tweepy.Cursor(api.get_blocked_ids).items()]
 
         os.system('cls')
 
         # TwitterBot
 
-        for count, tweet in enumerate(tweepy.Cursor(api.search, q = query, lang = 'en', result_type = 'recent', tweet_mode = 'extended').items(1000)):
+        for count, tweet in enumerate(tweepy.Cursor(api.search_tweets, q = query, lang = 'en', result_type = 'recent', tweet_mode = 'extended').items(1000)):
 
             try:
                 status = api.get_status(tweet.id, tweet_mode = 'extended')
@@ -72,11 +72,11 @@ def favorite_follow_retweet():
                 print(deemojify(f'{count}. {tweet.user.name} - @{tweet.user.screen_name}:\n\n{tweet.full_text}\n\n----------\n')) # Prints screen name and Tweet
                 time.sleep(2.5)
 
-            except tweepy.TweepError as error:
+            except tweepy.errors as error:
                 print(f'{count}. {str(error)}\n\n----------\n')
                 continue
 
-    except tweepy.TweepError as error:
+    except tweepy.errors as error:
         print(str(error) + '\n')
         if str(error).__contains__('An existing connection was forcibly closed by the remote host'):
             favorite_follow_retweet()

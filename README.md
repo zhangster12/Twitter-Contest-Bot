@@ -6,8 +6,8 @@ Install Tweepy and create `twitterFilter.txt`.
 
 ### Prerequisites
 ```
-npm install dotenv
-npm install tweepy
+py -m pip install dotenv
+py -m pip install tweepy
 ```
 
 ## Usage

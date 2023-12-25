@@ -10,12 +10,13 @@ os.system('cls')
 day = datetime.today().day
 
 print('Twitter Bot for ' + my_screen_name + '\n')
+
 try:
     # Run script
-    if day == 1 or api.me().friends_count > 2500:
+    if day == 1 or api.verify_credentials().friends_count > 2500:
         unfollow()
         unfavorite_unretweet()
-    elif day in [5, 10, 15, 20, 25, 30] or api.me().favourites_count > 2500 or api.me().statuses_count > 2500:
+    elif day in [5, 10, 15, 20, 25, 30] or api.verify_credentials().favourites_count > 2500 or api.verify_credentials().statuses_count > 2500:
         unfavorite_unretweet()
     else:
         favorite_follow_retweet()
